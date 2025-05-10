@@ -24,17 +24,24 @@ const ProductDetails = ({ refs, setRef }) => {
   const [price, setPrice] = useState(initialPrice);
   const [availability, setAvailability] = useState(stock === "Available");
   const [weightData, setWeightData] = useState(null); // To store weight specific data
-  const mainSlider = useRef(null);
-  const thumbSlider = useRef(null);
 
-  const [nav1, setNav1] = useState(null);
-  const [nav2, setNav2] = useState(null);
+const mainSlider = useRef(null);
+const thumbSlider = useRef(null);
+const [nav1, setNav1] = useState(null);
+const [nav2, setNav2] = useState(null);
 
-  useEffect(() => {
-    // Set refs to nav1 and nav2 when component mounts
+useEffect(() => {
+  if (
+    productDetails?.productImage &&
+    productDetails.productImage.length > 0 &&
+    mainSlider.current &&
+    thumbSlider.current
+  ) {
     setNav1(mainSlider.current);
     setNav2(thumbSlider.current);
-  }, []);
+  }
+}, [productDetails]);
+
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
     setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
@@ -262,90 +269,100 @@ const ProductDetails = ({ refs, setRef }) => {
                 </ul>
               </div>
             </div>
-             <div className="col-md-6 order-1 order-md-2">
-      <div
-        className="carousel-wrapper"
-        style={{
-          maxWidth: "100%",
-          margin: "auto",
-          padding: "10px",
-        }}
-      >
-        {/* Main Slider */}
-        <Slider
-          asNavFor={nav2}
-          ref={mainSlider}
-          arrows={false}
-          fade={true}
-          slidesToShow={1}
-          slidesToScroll={1}
-        >
-          {productDetails.productImage.map((img, i) => (
-            <div key={i} className="slider-big-image">
-              <img
-                src={img}
-                alt={`Main ${i}`}
+            <div className="col-md-6 order-1 order-md-2">
+              <div
+                className="carousel-wrapper"
                 style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "contain",
+                  maxWidth: "100%",
+                  margin: "auto",
+                  padding: "10px",
                 }}
-              />
-            </div>
-          ))}
-        </Slider>
+              >
+                {/* Main Slider */}
+                
+                <Slider
+                  asNavFor={nav2}
+                  ref={mainSlider}
+                  arrows={false}
+                  fade={true}
+                  slidesToShow={1}
+                  slidesToScroll={1}
+                >
+                  {productDetails.productImage.map((img, i) => (
+                    <div key={i} className="slider-big-image">
+                      <img
+                        src={img}
+                        alt={`Main ${i}`}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Slider>
 
-        {/* Thumbnail Slider */}
-        {productDetails.productImage.length > 1 && (
-          <div style={{ marginTop: "10px" }}>
-            <Slider
-              asNavFor={nav1}
-              ref={thumbSlider}
-              slidesToShow={Math.min(5, productDetails.productImage.length)}
-              swipeToSlide={true}
-              focusOnSelect={true}
-              arrows={true}
-              centerMode={productDetails.productImage.length > 6}
-              infinite={false}
-              responsive={[
-                {
-                  breakpoint: 768,
-                  settings: {
-                    slidesToShow: Math.min(3, productDetails.productImage.length),
-                    centerMode: productDetails.productImage.length > 3,
-                  },
-                },
-                {
-                  breakpoint: 480,
-                  settings: {
-                    slidesToShow: Math.min(4, productDetails.productImage.length),
-                    centerMode: productDetails.productImage.length > 2,
-                  },
-                },
-              ]}
-            >
-              {productDetails.productImage.map((img, i) => (
-                <div key={i} className="thumbnail-wrapper">
-                  <img
-                    src={img}
-                    alt={`Thumb ${i}`}
-                    className="img-fluid"
-                    style={{
-                      cursor: "pointer",
-                      padding: 5,
-                      height: 100,
-                      objectFit: "cover",
-                      borderRadius: "5px",
-                      width: "100%",
-                    }}
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
-        )}
-      </div>
-    </div>
+                {/* Thumbnail Slider */}
+                {productDetails.productImage.length > 1 && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Slider
+                      asNavFor={nav1}
+                      ref={thumbSlider}
+                      slidesToShow={Math.min(
+                        5,
+                        productDetails.productImage.length
+                      )}
+                      swipeToSlide={true}
+                      focusOnSelect={true}
+                      arrows={true}
+                      centerMode={productDetails.productImage.length > 6}
+                      infinite={false}
+                      responsive={[
+                        {
+                          breakpoint: 768,
+                          settings: {
+                            slidesToShow: Math.min(
+                              3,
+                              productDetails.productImage.length
+                            ),
+                            centerMode: productDetails.productImage.length > 3,
+                          },
+                        },
+                        {
+                          breakpoint: 480,
+                          settings: {
+                            slidesToShow: Math.min(
+                              4,
+                              productDetails.productImage.length
+                            ),
+                            centerMode: productDetails.productImage.length > 2,
+                          },
+                        },
+                      ]}
+                    >
+                      {productDetails.productImage.map((img, i) => (
+                        <div key={i} className="thumbnail-wrapper">
+                          <img
+                            src={img}
+                            alt={`Thumb ${i}`}
+                            className="img-fluid"
+                            style={{
+                              cursor: "pointer",
+                              padding: 5,
+                              height: 100,
+                              objectFit: "cover",
+                              borderRadius: "5px",
+                              width: "100%",
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className="descriptionsTabs">
