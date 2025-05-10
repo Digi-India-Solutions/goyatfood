@@ -213,7 +213,7 @@ const Header = ({refs, setRef}) => {
                         color: "var(--themeColor)",
                         textDecoration: "none",
                       }}
-                      to="tel:+91 9953843002"
+                      to="tel:+91 8283863884"
                       aria-label="Call us"
                     >
                       +91 8283863884

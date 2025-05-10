@@ -83,8 +83,8 @@ const PrivacyPolicy = () => {
             <li>To exercise your rights, contact us:</li>
           </ul>
           <p>
-            <strong>Email:</strong> <a href="mailto:info@goelmewewala.com" className="highlight">info@goelmewewala.com</a><br />
-            <strong>Phone:</strong> +91-9876543210
+            <strong>Email:</strong> <a  href="mailto:info@goyattrading.shop" className="highlight text-decoration-none">info@goyattrading.shop</a><br />
+            <strong>Phone:</strong> +91 8283863884
           </p>
 
           <h2>6. Changes to Privacy Policy</h2>
@@ -92,9 +92,9 @@ const PrivacyPolicy = () => {
 
           <h2>7. Contact Us</h2>
           <p>
-            <strong>Email:</strong> <a href="goelmewewale@gmail.com" className="highlight">info@goelmewewala.com</a><br />
-            <strong>Phone:</strong> +91-9953843002<br />
-            <strong>Address:</strong> Shop.141 Sec 24, Pocket 11  Rohini  Delhi.
+            <strong>Email:</strong> <a href="mailto:dryfruit9006@gmail.com" className="highlight text-decoration-none">info@goyattrading.shop</a><br />
+            <strong>Phone:</strong> +91 8283863884<br />
+            <strong>Address:</strong> GROUND FLOOR, SCO NO. 20, Goyat trading co., VASANT VIHAR PHASE NO. 1, HIMMATGARH DHAKOLI, ZIRAKPUR, SAS NAGAR MOHALI, SAS Nagar, Punjab,
           </p>
 
           <hr className="my-5" />

@@ -88,7 +88,7 @@ const ForgetPassword = () => {
   return (
     <>
       <Helmet>
-        <title>Forgot Password - Panchgavyamrit</title>
+        <title>Forgot Password - goyattrading</title>
         <meta
           name="description"
           content="Reset your password by entering the email associated with your Goyat Trading.Coaccount. You will receive an OTP for verification."

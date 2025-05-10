@@ -11,7 +11,7 @@ const Faq = () => {
   return (
     <>
       <Helmet>
-        <title>FAQ - Panchgavyamrit</title>
+        <title>FAQ - goyattrading</title>
         <meta
           name="description"
           content="Frequently Asked Questions about Goyat Trading.Co "
@@ -75,7 +75,6 @@ const Faq = () => {
                     aria-controls="collapseOne"
                   >
                     1. What products do you offer at Goyat Trading.Co?
-
                   </button>
                 </h2>
                 <div
@@ -89,7 +88,6 @@ const Faq = () => {
                     We specialize in premium-quality dry fruits,
                      nuts, and spices, carefully sourced and packed to 
                      deliver freshness, nutrition, and great taste.
-
                     </p>
                   </div>
                 </div>
@@ -105,7 +103,6 @@ const Faq = () => {
                     aria-controls="collapseTwo"
                   >
                     2. Are your dry fruits and nuts 100% natural?
-
                   </button>
                 </h2>
                 <div
@@ -134,7 +131,6 @@ const Faq = () => {
                     aria-controls="collapseThree"
                   >
                     3. How do you ensure the quality of your products?
-
                   </button>
                 </h2>
                 <div
@@ -148,7 +144,6 @@ const Faq = () => {
                     We source directly from trusted farmers and vendors.
                      Every batch undergoes strict quality checks to ensure 
                      only the best reaches our customers.
-
                     </p>
                   </div>
                 </div>
@@ -164,7 +159,6 @@ const Faq = () => {
                     aria-controls="collapseFour"
                   >
                     4. Do you offer packaging for gifting purposes?
-
                   </button>
                 </h2>
                 <div
@@ -178,7 +172,6 @@ const Faq = () => {
                     Yes, we offer customized gift packs and festive
                      hampers for weddings, corporate events, festivals, 
                      and special occasions. Contact us for bulk or personalized orders!
-
                     </p>
                   </div>
                 </div>
@@ -194,21 +187,18 @@ const Faq = () => {
                     aria-controls="collapseFive"
                   >
                     5. Where are you located?
-
                   </button>
                 </h2>
                 <div
                   id="collapseFive"
                   class="accordion-collapse collapse"
                   aria-labelledby="headingFive"
-                  data-bs-parent="#accordionExample"
-                >
+                  data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <p>
-                    We are based in Rohini, Delhi, and 
-                    proudly serve customers across Delhi NCR 
+                    We are based in vasant vihar, Punjab and 
+                    proudly serve customers across PAN India 
                     and beyond through our physical and online presence.
-
                     </p>
                   </div>
                 </div>
@@ -224,7 +214,6 @@ const Faq = () => {
                     aria-controls="collapseSix"
                   >
                     6.  Do you deliver products online?
-
                   </button>
                 </h2>
                 <div
@@ -238,7 +227,6 @@ const Faq = () => {
                     Yes! You can place your order through our 
                     website, WhatsApp, or phone. We offer safe and 
                     fast delivery to your doorstep.
-
                     </p>
                   </div>
                 </div>
@@ -254,7 +242,6 @@ const Faq = () => {
                     aria-controls="collapseSeven"
                   >
                     7. What is the shelf life of dry fruits and nuts?
-
                   </button>
                 </h2>
                 <div
@@ -287,8 +274,6 @@ const Faq = () => {
 
                   </button>
                 </h2>
-                
-                
                 <div
                   id="collapseEight"
                   class="accordion-collapse collapse"

@@ -52,7 +52,7 @@ const ReturnRefund = () => {
           <h1>Return & Refund Policy</h1>
           <div className="section-intro">
             <p>
-              At <strong>goelmewewale</strong>, we are committed to
+              At <strong>Goyattrading</strong>, we are committed to
               providing high-quality products and services. If you're not
               satisfied with your purchase, we're here to help. Here's our
               detailed Return & Refund Policy.
@@ -107,9 +107,9 @@ const ReturnRefund = () => {
             </h2>
             <p>
               To start a return, contact us at:
-              <a href="mailto:goelmewewale@gmail.com" className="highlight">
+              <a href="mailto:dryfruit9006@gmail.com" className="highlight">
                 {" "}
-                goelmewewale@gmail.com
+                dryfruit9006@gmail.com
               </a>
               with:
             </p>

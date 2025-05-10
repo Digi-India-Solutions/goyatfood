@@ -33,7 +33,7 @@ const ResetPasswordPage = () => {
                     confirmButtonText: 'Go to Login',
                 }).then(() => {
                     // Redirect to login page after success message
-                    window.location.href = 'https://panchgavyamrit.com/login';
+                    window.location.href = 'https://goyattrading.shop/login';
                 });
             } else {
                 alert(response.data.message);
