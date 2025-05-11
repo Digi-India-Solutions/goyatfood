@@ -49,40 +49,55 @@
     const decreaseQuantity = () =>
       setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
 
-    useEffect(() => {
-      const fetchProductDetails = async () => {
-        try {
-          const response = await axios.get(
-            `https://goyattrading.shop/api/single-product/${id}`
+  useEffect(() => {
+  const fetchProductDetails = async () => {
+    try {
+      const response = await axios.get(
+        `https://goyattrading.shop/api/single-product/${id}`
+      );
+      console.log("✅ Product response:", response.data);
+
+      const product = response.data.product;
+      setProductDetails(product);
+
+      // ✅ Safe check before accessing productImage[0]
+      if (
+        product &&
+        Array.isArray(product.productImage) &&
+        product.productImage.length > 0
+      ) {
+        setCurrentImage(product.productImage[0]);
+        console.log("✅ Set currentImage:", product.productImage[0]);
+      } else {
+        console.warn("⚠️ No product images found or productImage is not an array.");
+      }
+
+      // ✅ Safe check before working with productInfo
+      if (product && Array.isArray(product.productInfo) && product.productInfo.length > 0) {
+        const initialWeightData = product.productInfo.find(
+          (option) => option.productweight === initialWeight
+        );
+        if (initialWeightData) {
+          console.log("✅ Initial weightData found:", initialWeightData);
+          setWeightData(initialWeightData);
+          setPrice(initialWeightData.productPrice);
+          setAvailability(
+            initialWeightData?.stock?.trim().toLowerCase() === "available"
           );
-          console.log("✅ Product response:", response.data);
-
-         const product = response.data.product;
-         setProductDetails(product);
-
-          // setCurrentImage(response.data.product.productImage[0]);
-          
-
-          // Initialize weight data
-          if (response.data.product.productInfo.length > 0) {
-            const initialWeightData = response.data.product.productInfo.find(
-              (option) => option.productweight === initialWeight
-            );
-            if (initialWeightData) {
-              console.log("XXXXXXXX", initialWeightData);
-              setWeightData(initialWeightData);
-              setPrice(initialWeightData.productPrice);
-              setAvailability(
-                initialWeightData?.stock.trim().toLowerCase() === "available"
-              );
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching product details", error);
+        } else {
+          console.warn(`⚠️ No matching weight data found for "${initialWeight}".`);
         }
-      };
-      fetchProductDetails();
-    }, [id, initialWeight]);
+      } else {
+        console.warn("⚠️ productInfo is missing or not an array.");
+      }
+    } catch (error) {
+      console.error("❌ Error fetching product details:", error);
+    }
+  };
+
+  fetchProductDetails();
+}, [id, initialWeight]);
+
 
     const handleWeightChange = (event) => {
       const selectedWeight = event.target.value;
