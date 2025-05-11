@@ -92,7 +92,7 @@ const PrivacyPolicy = () => {
 
           <h2>7. Contact Us</h2>
           <p>
-            <strong>Email:</strong> <a href="mailto:dryfruit9006@gmail.com" className="highlight text-decoration-none">info@goyattrading.shop</a><br />
+            <strong>Email:</strong> <a href="mailto:dryfruit2664@gmail.com" className="highlight text-decoration-none">info@goyattrading.shop</a><br />
             <strong>Phone:</strong> +91 8283863884<br />
             <strong>Address:</strong> GROUND FLOOR, SCO NO. 20, Goyat trading co., VASANT VIHAR PHASE NO. 1, HIMMATGARH DHAKOLI, ZIRAKPUR, SAS NAGAR MOHALI, SAS Nagar, Punjab,
           </p>

@@ -53,7 +53,7 @@ const getOrderEmailTemplate = (checkout) => {
         <body>
             <div class="container">
                 <div class="header">
-                    <img src="https://panchgavyamrit.com/static/media/Logo.e4770e51e9e2f1f1d58d.png" alt="Goyat Trading.Co Logo">
+                    <img src="https://goyattrading.shop/static/media/Logo.78593d7a3d9d4d016c48.png" alt="Goyat Trading.Co Logo">
                     <h2>New Order Received - Goyat Trading.Co</h2>
                 </div>
                 <div class="section">
@@ -139,7 +139,7 @@ exports.checkout = async (req, res) => {
     // Fetch shipping charge based on pincode
     if (pincode) {
         try {
-            const response = await axios.get("https://api.panchgavyamrit.com/api/all-pincode");
+            const response = await axios.get("http://api.goyattrading.shop//api/all-pincode");
             const pinCodeData = response.data.find(item => item.pincode === parseInt(pincode));
             if (pinCodeData) {
                 shippingCost = pinCodeData.shippingCharge;
