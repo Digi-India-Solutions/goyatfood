@@ -247,7 +247,7 @@ const forgotPassword = async (req, res) => {
         await user.save();
 
         // Generate the reset link
-        const resetLink = `http://localhost:8000/reset-password/${resetToken}`;
+        const resetLink = `http://localhost:12006/reset-password/${resetToken}`;
 
         // Send password reset email
         await transporter.sendMail({

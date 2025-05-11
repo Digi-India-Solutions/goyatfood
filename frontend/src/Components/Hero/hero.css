@@ -174,7 +174,7 @@
 }
 
 .product-card {
-  width: 100%;
+  width: 98%;
   /* padding: 16px; */
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -221,7 +221,7 @@
 }
 
 .product-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   color: var(--themeColor);
   /* margin: 8px 0; */
@@ -234,7 +234,7 @@
 }
 
 .current-price {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--green);
 }
@@ -496,6 +496,9 @@ select:focus-visible {
   
 }
 
+ .price {
+    width: 30%;
+  }
 
 @media only screen and (max-width: 768px) {
 

@@ -16,7 +16,7 @@ const ProductsTabs = () => {
     dots: true,
     infinite: true, // changed from false to true for smoother UX
     speed: 400,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000, // autoplay every 3s
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -51,7 +51,7 @@ const ProductsTabs = () => {
   
 
   useEffect(() => {
-    axios.get("https://goyattrading.shop/api/all-category").then((response) => {
+    axios.get("http://localhost:12006/api/all-category").then((response) => {
       setCategories(response.data);
       if (response.data.length > 0) setActiveTab(response.data[0]._id);
     });
@@ -60,7 +60,7 @@ const ProductsTabs = () => {
   useEffect(() => {
     if (activeTab) {
       axios
-        .get("https://goyattrading.shop/api/get-product")
+        .get("http://localhost:12006/api/get-product")
         .then((response) => {
           const filteredProducts = response.data.products.filter(
             (product) => product.categoryName._id === activeTab
@@ -169,7 +169,7 @@ const ProductsTabs = () => {
                         <div className="p-2">
 
                           <div className="productName">
-                            <h3 className="product-title">{truncateText(product.productName, 3)}</h3>
+                            <h3 className="product-title">{truncateText(product.productName, 4)}</h3>
                             <div className="price text-end">
                               {selectedProductInfo?.productDiscountPercentage > 0 ? (
                                 <>
@@ -191,9 +191,9 @@ const ProductsTabs = () => {
                                 </>
                               ) : (
                                 <div>
-                                  selectedProductInfo?.productFinalPrice && (
-                                  <span className="current">₹ {selectedProductInfo.productFinalPrice}</span>
-                                  )
+                                 { selectedProductInfo?.productFinalPrice && (
+                                  <span className="current">{["₹ ", selectedProductInfo.productFinalPrice]}</span>
+                                  )}
                                 </div>
                               )}
                             </div>

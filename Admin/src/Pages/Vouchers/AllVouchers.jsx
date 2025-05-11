@@ -14,7 +14,7 @@ const AllVouchers = () => {
     useEffect(() => {
         const fetchVouchers = async () => {
             try {
-                const response = await axios.get('https://goyattrading.shop/api/all-vouchers');
+                const response = await axios.get('http://localhost:12006/api/all-vouchers');
                 setVouchers(response.data.data);
                 setIsLoading(false);
             } catch (error) {
@@ -38,7 +38,7 @@ const AllVouchers = () => {
             });
 
             if (result.isConfirmed) {
-                await axios.delete(`https://goyattrading.shop/api/delete-vouchers/${id}`);
+                await axios.delete(`http://localhost:12006/api/delete-vouchers/${id}`);
                 setVouchers(vouchers.filter((vouchers) => vouchers._id !== id));
                 toast.success('Vouchers deleted successfully!');
             }

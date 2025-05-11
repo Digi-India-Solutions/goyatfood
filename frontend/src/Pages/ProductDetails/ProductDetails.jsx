@@ -16,12 +16,15 @@ const ProductDetails = ({ refs, setRef }) => {
   const queryParams = new URLSearchParams(location.search);
   const initialWeight = queryParams.get("weight") || ""; // default to empty if no weight in query
   const initialPrice = queryParams.get("price") || "";
+  const productFinalPrice =
+    queryParams.get("productFinalPrice") || initialPrice;
   const stock = queryParams.get("stock");
   const [quantity, setQuantity] = useState(1);
   const [currentImage, setCurrentImage] = useState(""); // For tracking the selected image
   const [productDetails, setProductDetails] = useState(null);
   const [selectedWeight, setSelectedWeight] = useState(initialWeight);
   const [price, setPrice] = useState(initialPrice);
+  const [prodproductFinalPrice, setproductFinalPrice] = useState(initialPrice);
   const [availability, setAvailability] = useState(stock === "Available");
   const [weightData, setWeightData] = useState(null); // To store weight specific data
 
@@ -50,7 +53,7 @@ useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://goyattrading.shop/api/single-product/${id}`
+          `http://localhost:12006/api/single-product/${id}`
         );
         setProductDetails(response.data.product);
         setCurrentImage(response.data.product.productImage[0]);
@@ -121,6 +124,7 @@ useEffect(() => {
         productName: productDetails.productName,
         productImage: productDetails.productImage[0],
         price: price, // Use updated price
+        productFinalPrice: productFinalPrice, // Use updated price
         weight: selectedWeight,
         quantity,
       };
@@ -246,7 +250,7 @@ useEffect(() => {
                   </li>
                   <li className="price">
                     <b>Price:</b>
-                    <span className="fs-2">₹{price}</span>
+                    <span className="fs-2">₹{productFinalPrice}</span>
                     &nbsp;
                   </li>
                   <li>

@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://goyattrading.shop/api/log-in",
+        "http://localhost:12006/api/log-in",
         data
       );
       console.log(res);

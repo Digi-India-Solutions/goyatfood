@@ -14,8 +14,8 @@ const AllBanner = () => {
         const fetchBanners = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get('https://goyattrading.shop/api/all-banner');
-                //                 const response = await axios.get('https://goyattrading.shop/api/all-banner');
+                const response = await axios.get('http://localhost:12006/api/all-banner');
+                //                 const response = await axios.get('http://localhost:12006/api/all-banner');
 
                 setBanners(response.data.banners); // Assuming the API returns an array of banners
             } catch (error) {
@@ -41,7 +41,7 @@ const AllBanner = () => {
             });
 
             if (result.isConfirmed) {
-                await axios.delete(`https://goyattrading.shop/api/delete-banner/${bannerId}`);
+                await axios.delete(`http://localhost:12006/api/delete-banner/${bannerId}`);
                 setBanners(banners.filter((banner) => banner._id !== bannerId)); // Remove the deleted banner from the state
                 Swal.fire('Deleted!', 'Your banner has been deleted.', 'success');
             }

@@ -45,7 +45,7 @@ const AddArtical = () => {
         formData.append('image', data.image);
 
         try {
-            const response = await axios.post('https://goyattrading.shop/api/create-artical', formData, {
+            const response = await axios.post('http://localhost:12006/api/create-artical', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

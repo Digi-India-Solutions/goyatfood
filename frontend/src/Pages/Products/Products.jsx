@@ -16,7 +16,7 @@ const Products = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://goyattrading.shop/api/all-category"
+          "http://localhost:12006/api/all-category"
         );
         const fetchedCategories = response?.data;
         setCategories(fetchedCategories);
@@ -37,7 +37,7 @@ const Products = () => {
   const fetchProducts = async (categoryId) => {
     try {
       const response = await axios.get(
-        "https://goyattrading.shop/api/get-product"
+        "http://localhost:12006/api/get-product"
       );
       const filteredProducts = response.data.products.filter(
         (product) => product.categoryName._id === categoryId

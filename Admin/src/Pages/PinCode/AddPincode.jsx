@@ -48,7 +48,7 @@ const AddPincode = () => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://goyattrading.shop/api/add-pincode', pincodeData);
+            const response = await axios.post('http://localhost:12006/api/add-pincode', pincodeData);
             toast.success('Pincode added successfully!');
             // Clear the form after successful submission
             setPincodeData({ pincode: '', shippingCharge: '' });
