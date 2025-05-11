@@ -32,7 +32,7 @@ const Register = () => {
     try {
       if (data.password === cPass) {
         const res = await axios.post(
-          "https://goyat-dryfruits.onrender.com/api/signup",
+          "https://goyattrading.shop/api/signup",
           data
         );
         if (res.status === 201) {

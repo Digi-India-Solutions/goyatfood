@@ -50,7 +50,7 @@ useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://goyat-dryfruits.onrender.com/api/single-product/${id}`
+          `https://goyattrading.shop/api/single-product/${id}`
         );
         setProductDetails(response.data.product);
         setCurrentImage(response.data.product.productImage[0]);

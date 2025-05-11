@@ -21,7 +21,7 @@ const ResetPasswordPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://goyat-dryfruits.onrender.com/api/reset-password', {
+            const response = await axios.post('https://goyattrading.shop/api/reset-password', {
                 token,
                 newPassword,
             });

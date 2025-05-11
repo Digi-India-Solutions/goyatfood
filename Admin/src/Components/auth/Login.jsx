@@ -13,7 +13,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'https://goyat-dryfruits.onrender.com/api/log-in',
+        'https://goyattrading.shop/api/log-in',
         { email, password },
         { withCredentials: true } // Ensure cookies are sent with the request
       );

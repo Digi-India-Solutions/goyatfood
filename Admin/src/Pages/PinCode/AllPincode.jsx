@@ -14,7 +14,7 @@ const AllPincode = () => {
     useEffect(() => {
         const fetchPincodes = async () => {
             try {
-                const response = await axios.get('https://goyat-dryfruits.onrender.com/api/all-pincode');
+                const response = await axios.get('https://goyattrading.shop/api/all-pincode');
                 console.log(response)
                 setPincodes(response.data);
                 setIsLoading(false);
@@ -39,7 +39,7 @@ const AllPincode = () => {
             });
 
             if (result.isConfirmed) {
-                await axios.delete(`https://goyat-dryfruits.onrender.com/api/delete-pincode/${id}`);
+                await axios.delete(`https://goyattrading.shop/api/delete-pincode/${id}`);
                 setPincodes(pincodes.filter((pincode) => pincode._id !== id));
                 toast.success('Pincode deleted successfully!');
             }

@@ -26,7 +26,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://goyat-dryfruits.onrender.com/api/send-enquery",
+        "https://goyattrading.shop/api/send-enquery",
         data
       );
       if (res.status === 200) {
