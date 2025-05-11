@@ -53,7 +53,7 @@ const getOrderEmailTemplate = (checkout) => {
         <body>
             <div class="container">
                 <div class="header">
-                    <img src="https://goyattrading.shop/static/media/Logo.78593d7a3d9d4d016c48.png" alt="Goyat Trading.Co Logo">
+                    <img src="https://api.goyattrading.shop/static/media/Logo.78593d7a3d9d4d016c48.png" alt="Goyat Trading.Co Logo">
                     <h2>New Order Received - Goyat Trading.Co</h2>
                 </div>
                 <div class="section">

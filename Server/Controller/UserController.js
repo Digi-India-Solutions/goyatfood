@@ -247,7 +247,7 @@ const forgotPassword = async (req, res) => {
         await user.save();
 
         // Generate the reset link
-        const resetLink = `https://goyattrading.shop/reset-password/${resetToken}`;
+        const resetLink = `https://api.goyattrading.shop/reset-password/${resetToken}`;
 
         // Send password reset email
         await transporter.sendMail({

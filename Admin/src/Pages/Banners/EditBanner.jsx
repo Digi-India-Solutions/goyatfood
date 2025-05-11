@@ -18,7 +18,7 @@ const EditBanner = () => {
     useEffect(() => {
         const fetchBannerData = async () => {
             try {
-                const response = await axios.get(`https://goyattrading.shop/api/single-banner/${id}`);
+                const response = await axios.get(`https://api.goyattrading.shop/api/single-banner/${id}`);
                 setBannerData({
                     bannerImage: response.data.banner.bannerImage,
                     bannerStatus: response.data.banner.bannerStatus,
@@ -59,7 +59,7 @@ const EditBanner = () => {
         }
 
         try {
-            const response = await axios.put(`https://goyattrading.shop/api/update-banner/${id}`, formData, {
+            const response = await axios.put(`https://api.goyattrading.shop/api/update-banner/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
