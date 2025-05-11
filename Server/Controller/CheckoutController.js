@@ -9,8 +9,8 @@ const { getYear } = require("date-fns");
 const User = require("../Models/UserModel");
 
 const razorpayInstance = new Razorpay({
-    key_id: 'rzp_live_FjN3xa6p5RsEl6',
-    key_secret: 'CrSeAmgW4PgPIKzsNOaqL7QB',
+    key_id: 'rzp_test_FRckvhKNEefOkZ',
+    key_secret: 'B172ZVyS1fmkiljd613XUyi5',
 });
 
 // Helper function for email template
