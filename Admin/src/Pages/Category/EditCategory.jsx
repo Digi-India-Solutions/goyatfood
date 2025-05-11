@@ -19,7 +19,7 @@ const EditCategory = () => {
         // Fetch category details by ID
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`http://localhost:12006/api/signle-category/${id}`);
+                const response = await axios.get(`https://goyattrading.shop/api/signle-category/${id}`);
                 const { categoryName, categoryImage, categoryStatus } = response.data;
                 setCategoryName(categoryName);
                 setExistingImage(categoryImage);
@@ -43,7 +43,7 @@ const EditCategory = () => {
         formData.append('categoryStatus', categoryStatus); // Add categoryStatus
 
         try {
-            await axios.put(`http://localhost:12006/api/update-category/${id}`, formData, {
+            await axios.put(`https://goyattrading.shop/api/update-category/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

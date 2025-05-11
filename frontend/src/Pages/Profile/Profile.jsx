@@ -11,13 +11,13 @@ const Profile = () => {
   const getUserData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:12006/api/get-user/" + userId
+        "https://goyattrading.shop/api/get-user/" + userId
       );
       if (res.status === 200) {
         setData(res.data.data);
         // Assuming orders are fetched from a different API endpoint
         const ordersRes = await axios.get(
-          `http://localhost:12006/api/all-order-by-userid/${userId}`
+          `https://goyattrading.shop/api/all-order-by-userid/${userId}`
         );
         if (ordersRes.status === 200) {
           setOrders(ordersRes.data.data); // Set the orders from API response

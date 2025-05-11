@@ -53,7 +53,7 @@ useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:12006/api/single-product/${id}`
+          `https://goyattrading.shop/api/single-product/${id}`
         );
         setProductDetails(response.data.product);
         setCurrentImage(response.data.product.productImage[0]);

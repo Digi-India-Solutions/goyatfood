@@ -21,7 +21,7 @@ const EditSubCategory = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:12006/api/all-category');
+                const response = await axios.get('https://goyattrading.shop/api/all-category');
                 setCategories(response.data); // Assuming response.data is an array of categories
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -31,7 +31,7 @@ const EditSubCategory = () => {
 
         const fetchSubCategory = async () => {
             try {
-                const response = await axios.get(`http://localhost:12006/api/single-subcategory/${id}`);
+                const response = await axios.get(`https://goyattrading.shop/api/single-subcategory/${id}`);
                 const { categoryName, subcategoryName, subcategoryImage, subcategoryStatus } = response.data.subcategory;
                 setFormData({
                     categoryName: categoryName._id,  // Set category ID
@@ -73,7 +73,7 @@ const EditSubCategory = () => {
         });
         try {
             const response = await axios.put(
-                `http://localhost:12006/api/update-subcategory/${id}`,
+                `https://goyattrading.shop/api/update-subcategory/${id}`,
                 apiFormData,
                 {
                     headers: {

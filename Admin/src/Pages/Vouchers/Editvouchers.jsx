@@ -18,7 +18,7 @@ const EditVouchers = () => {
     useEffect(() => {
         const fetchVoucher = async () => {
             try {
-                const response = await axios.get(`http://localhost:12006/api/single-vouchers/${id}`);
+                const response = await axios.get(`https://goyattrading.shop/api/single-vouchers/${id}`);
                 setVoucherData(response.data.data);
             } catch (error) {
                 console.error('Error fetching voucher:', error);
@@ -57,7 +57,7 @@ const EditVouchers = () => {
         }
         setIsLoading(true);
         try {
-            await axios.put(`http://localhost:12006/api/update-vouchers/${id}`, voucherData);
+            await axios.put(`https://goyattrading.shop/api/update-vouchers/${id}`, voucherData);
             toast.success('Voucher updated successfully!');
             navigate('/all-vouchers');
         } catch (error) {
