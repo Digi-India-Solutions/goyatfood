@@ -21,7 +21,7 @@
 //     const fetchProducts = async (searchQuery) => {
 //         try {
 //             const response = await axios.get(
-//                 "https://goyattrading.shop/api/get-product"
+//                 "https://api.goyattrading.shop/api/get-product"
 //             );
 
 //             let filteredProducts = response.data.products.filter((product) => product.productStatus === true);
@@ -273,7 +273,7 @@ const AllProduct = ({ refs, setRef }) => {
   const fetchProducts = async (searchQuery) => {
     try {
       const response = await axios.get(
-        "https://goyattrading.shop/api/get-product"
+        "https://api.goyattrading.shop/api/get-product"
       );
       let filteredProducts = response.data.products.filter(
         (product) => product.productStatus === true

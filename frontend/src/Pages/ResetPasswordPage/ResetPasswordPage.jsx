@@ -21,7 +21,7 @@ const ResetPasswordPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://goyattrading.shop/api/reset-password', {
+            const response = await axios.post('https://api.goyattrading.shop/api/reset-password', {
                 token,
                 newPassword,
             });
@@ -33,7 +33,7 @@ const ResetPasswordPage = () => {
                     confirmButtonText: 'Go to Login',
                 }).then(() => {
                     // Redirect to login page after success message
-                    window.location.href = 'https://goyattrading.shop/login';
+                    window.location.href = 'https://api.goyattrading.shop/login';
                 });
             } else {
                 alert(response.data.message);

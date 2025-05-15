@@ -53,7 +53,7 @@
       const fetchProductDetails = async () => {
         try {
           const response = await axios.get(
-            `https://goyattrading.shop/api/single-product/${id}`
+            `https://api.goyattrading.shop/api/single-product/${id}`
           );
           console.log("✅ Product response:", response.data);
 

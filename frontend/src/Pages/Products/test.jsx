@@ -26,7 +26,7 @@ const Hero = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://goyattrading.shop/api/get-product");
+      const response = await axios.get("https://api.goyattrading.shop/api/get-product");
       setProducts(response.data.products);
     } catch (error) {
       console.error("Error fetching products:", error);

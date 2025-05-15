@@ -9,7 +9,7 @@ const SubscribeForm = () => {
   const Subscribe = async () => {
     console.log(subscribeEmail)
     try {
-      const res = await axios.post("https://goyattrading.shop/api/subscribe", { subscribeEmail: subscribeEmail })
+      const res = await axios.post("https://api.goyattrading.shop/api/subscribe", { subscribeEmail: subscribeEmail })
       if (res.status === 201) {
         Swal.fire({
           icon: "success",
