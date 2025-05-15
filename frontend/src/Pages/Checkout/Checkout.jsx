@@ -25,7 +25,7 @@ const Checkout = () => {
   useEffect(() => {
     const getCupancode = async () => {
       try {
-        const res = await axios.get("https://goyattrading.shop/api/all-vouchers");
+        const res = await axios.get("https://api.goyattrading.shop/api/all-vouchers");
         if (res.status === 200) {
           setCupanCode(res.data.data);
         }
@@ -37,7 +37,7 @@ const Checkout = () => {
 
     const getApiData = async () => {
       try {
-        const res = await axios.get(`https://goyattrading.shop/api/get-user/${userId}`);
+        const res = await axios.get(`https://api.goyattrading.shop/api/get-user/${userId}`);
         if (res.status === 200) {
           setUserData(res.data.data);
         }
@@ -112,7 +112,7 @@ const Checkout = () => {
       setShipping(0);
     } else if (pincode) {
       try {
-        const response = await axios.get("https://goyattrading.shop/api/all-pincode");
+        const response = await axios.get("https://api.goyattrading.shop/api/all-pincode");
         const pinCodeData = response.data.find(item => item.pincode === parseInt(pincode));
         if (pinCodeData) {
           console.log("Shipping charge for pincode:", pinCodeData.shippingCharge);
@@ -199,20 +199,20 @@ const Checkout = () => {
         };
 
         try {
-          const res = await axios.post("https://goyattrading.shop/api/checkout", checkoutData);
+          const res = await axios.post("https://api.goyattrading.shop/api/checkout", checkoutData);
           console.log(res);
           if (res.status === 201) {
             if (paymentMethod === "Online") {
               const { razorpayOrder } = res.data;
               const options = {
-                key: "rzp_live_FjN3xa6p5RsEl6",
+                key: "rzp_live_do7HzK842DCXR4",
                 amount: razorpayOrder.amount,
                 currency: "INR",
                 name: "Goyat Trading.Co",
                 description: "Checkout Payment",
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
-                  const verifyResponse = await axios.post("https://goyattrading.shop/api/payment/verify", {
+                  const verifyResponse = await axios.post("https://api.goyattrading.shop/api/payment/verify", {
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_signature: response.razorpay_signature,
