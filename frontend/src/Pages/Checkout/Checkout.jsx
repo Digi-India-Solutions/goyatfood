@@ -199,7 +199,7 @@ const Checkout = () => {
         };
 
         try {
-          const res = await axios.post("http://localhost:12006/api/checkout", checkoutData);
+          const res = await axios.post("https://api.goyattrading.shop/api/checkout", checkoutData);
 
           if (res.status === 201) {
             if (paymentMethod === "Online") {
@@ -207,7 +207,6 @@ const Checkout = () => {
               console.log("res:--", res.data.checkout._id, razorpayOrder.id);
               const options = {
                 key: "rzp_live_gtFmeXCTknKUqe",
-                // key: "rzp_test_GQ6XaPC6gMPNwH",
                 amount: razorpayOrder.amount,
                 currency: "INR",
                 name: "Goyat Trading.Co",
@@ -217,7 +216,7 @@ const Checkout = () => {
                 handler: async (response) => {
                   console.log("RESPONS:=", response);
 
-                  const verifyResponse = await axios.post("http://localhost:12006/api/payment/verify", {
+                  const verifyResponse = await axios.post("https://api.goyattrading.shop/api/payment/verify", {
                     razorpay_payment_id: response.razorpay_payment_id,
                     // razorpay_order_id: response.razorpay_order_id,
                     razorpay_signature: response.razorpay_signature,
