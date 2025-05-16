@@ -9,8 +9,8 @@ const { getYear } = require("date-fns");
 const User = require("../Models/UserModel");
 
 const razorpayInstance = new Razorpay({
-    key_id: 'rzp_test_FRckvhKNEefOkZ',
-    key_secret: 'B172ZVyS1fmkiljd613XUyi5',
+    key_id: 'rzp_live_gtFmeXCTknKUqe',
+    key_secret: 'OK15Oz43b7rLkhfHCbimQd9d',
 });
 
 // Helper function for email template
@@ -266,7 +266,7 @@ exports.verifyPayment = async (req, res) => {
     if (!checkout) {
         return res.status(400).json({ error: 'Order not found' });
     }
-    const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const body = "razorpay_order_id" + "|" + razorpay_payment_id;
     const expectedSignature = crypto
         .createHmac('sha256', razorpayInstance.key_secret)
         .update(body.toString())
