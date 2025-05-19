@@ -65,7 +65,7 @@ const Header = ({refs, setRef}) => {
                   </li>
                   <li>
                     <Link to="/contact-us" aria-label="Contact">
-                      Contact
+                      Contact Us
                     </Link>
                   </li>
                 </ul>
