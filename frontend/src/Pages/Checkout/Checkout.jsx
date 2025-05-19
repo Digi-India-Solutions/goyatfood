@@ -4,23 +4,20 @@ import check from "../../images/check.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 const Checkout = () => {
-  const userId = sessionStorage.getItem("userId")
-  const [userData, setUserData] = useState({})
-  const [applycupanValue, setApplycupanValue] = useState()
+  const userId = sessionStorage.getItem("userId");
+  const [userData, setUserData] = useState({});
+  const [applycupanValue, setApplycupanValue] = useState();
   const [cartItems, setCartItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [total, setTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("Online");
-  const [cupanCode, setCupanCode] = useState([])
+  const [cupanCode, setCupanCode] = useState([]);
   const [discount, setDiscount] = useState(0);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
-
-
 
   useEffect(() => {
     const getCupancode = async () => {
@@ -37,7 +34,9 @@ const Checkout = () => {
 
     const getApiData = async () => {
       try {
-        const res = await axios.get(`https://api.goyattrading.shop/api/get-user/${userId}`);
+        const res = await axios.get(
+          `https://api.goyattrading.shop/api/get-user/${userId}`
+        );
         if (res.status === 200) {
           setUserData(res.data.data);
         }
@@ -47,12 +46,13 @@ const Checkout = () => {
     };
     getApiData();
 
-    const savedCartItems = JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+    const savedCartItems =
+      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
 
-  console.log("userDatauserDatauserDatauserDatauserData", userData)
+  console.log("userDatauserDatauserDatauserDatauserData", userData);
 
   const [shippingAddress, setShippingAddress] = useState({
     name: userData?.name,
@@ -62,7 +62,7 @@ const Checkout = () => {
     city: userData?.city || "",
     state: userData?.state || "",
     country: userData?.country || "",
-    postalCode: userData?.postalCode || ""
+    postalCode: userData?.postalCode || "",
   });
 
   useEffect(() => {
@@ -76,18 +76,18 @@ const Checkout = () => {
         city: userData?.city || "",
         state: userData?.state || "",
         country: userData?.country || "",
-        postalCode: userData?.postalCode || ""
+        postalCode: userData?.postalCode || "",
       }));
     }
   }, [userData]);
-
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    const savedCartItems = JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+    const savedCartItems =
+      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -101,7 +101,7 @@ const Checkout = () => {
   const calculateCartSummary = async (cartItems) => {
     let tempSubtotal = 0;
 
-    cartItems.forEach(item => {
+    cartItems.forEach((item) => {
       tempSubtotal += item.price * item.quantity;
     });
     setSubtotal(tempSubtotal);
@@ -112,10 +112,17 @@ const Checkout = () => {
       setShipping(0);
     } else if (pincode) {
       try {
-        const response = await axios.get("https://api.goyattrading.shop/api/all-pincode");
-        const pinCodeData = response.data.find(item => item.pincode === parseInt(pincode));
+        const response = await axios.get(
+          "https://api.goyattrading.shop/api/all-pincode"
+        );
+        const pinCodeData = response.data.find(
+          (item) => item.pincode === parseInt(pincode)
+        );
         if (pinCodeData) {
-          console.log("Shipping charge for pincode:", pinCodeData.shippingCharge);
+          console.log(
+            "Shipping charge for pincode:",
+            pinCodeData.shippingCharge
+          );
           setShipping(pinCodeData.shippingCharge);
         } else {
           setShipping(200);
@@ -130,7 +137,6 @@ const Checkout = () => {
 
     setTotal(tempSubtotal + (tempSubtotal >= 6000 ? 0 : shipping));
   };
-
 
   const validateCouponCode = () => {
     if (isCouponApplied) {
@@ -163,7 +169,6 @@ const Checkout = () => {
     }
   }, [subtotal, shipping]);
 
-
   const navigate = useNavigate();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
@@ -179,15 +184,15 @@ const Checkout = () => {
   const handleConfirmOrder = async (event) => {
     event.preventDefault();
     Swal.fire({
-      title: 'Confirm Your Order',
+      title: "Confirm Your Order",
       text: `Do you want to proceed with the order?`,
       // For your pincode, the shipping charge is ₹${shipping}.
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Yes, Place Order',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: '#F37254',
-      cancelButtonColor: '#d33',
+      confirmButtonText: "Yes, Place Order",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#F37254",
+      cancelButtonColor: "#d33",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const checkoutData = {
@@ -195,11 +200,14 @@ const Checkout = () => {
           products: cartItems,
           shippingAddress,
           paymentMethod,
-          cupanCode: applycupanValue || null
+          cupanCode: applycupanValue || null,
         };
 
         try {
-          const res = await axios.post("https://api.goyattrading.shop/api/checkout", checkoutData);
+          const res = await axios.post(
+            "https://api.goyattrading.shop/api/checkout",
+            checkoutData
+          );
 
           if (res.status === 201) {
             if (paymentMethod === "Online") {
@@ -211,23 +219,28 @@ const Checkout = () => {
                 currency: "INR",
                 name: "Goyat Trading.Co",
                 description: "Checkout Payment",
-                // order_id: razorpayOrder.id,
-                // order_id: res.data.checkout._id,
+                order_id: razorpayOrder.id,
                 handler: async (response) => {
-                  console.log("RESPONS:=", response);
+                  try {
+                    const verifyResponse = await axios.post(
+                      "https://api.goyattrading.shop/api/payment/verify",
+                      {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature,
+                        order_id: res.data.checkout._id, // MongoDB ID
+                      }
+                    );
 
-                  const verifyResponse = await axios.post("https://api.goyattrading.shop/api/payment/verify", {
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    // razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature,
-                    order_id: res.data.checkout._id
-                  });
-
-                  if (verifyResponse.status === 200) {
-                    sessionStorage.removeItem("VesLakshna");
-                    setIsPopupVisible(true);
-                  } else {
-                    alert("Payment verification failed");
+                    if (verifyResponse.status === 200) {
+                      sessionStorage.removeItem("VesLakshna");
+                      setIsPopupVisible(true);
+                    } else {
+                      alert("Payment verification failed");
+                    }
+                  } catch (error) {
+                    console.error("Verification error:", error);
+                    alert("Something went wrong while verifying payment.");
                   }
                 },
                 prefill: {
@@ -251,7 +264,7 @@ const Checkout = () => {
         }
       } else {
         // Do nothing if the user cancels
-        console.log('Order cancelled');
+        console.log("Order cancelled");
       }
     });
   };
@@ -329,39 +342,86 @@ const Checkout = () => {
                   <div className="col-md-12">
                     <div className="form-group">
                       <label htmlFor="phone">Phone</label>
-                      <input type="number" id="phone" name="phone" value={shippingAddress.phone} onChange={handleInputChange} required placeholder="Phone Number" />
+                      <input
+                        type="number"
+                        id="phone"
+                        name="phone"
+                        value={shippingAddress.phone}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Phone Number"
+                      />
                     </div>
                   </div>
                   <div className="col-md-12">
                     <div className="form-group">
                       <label htmlFor="address">Address *</label>
-                      <input type="text" id="address" name="address" value={shippingAddress.address} onChange={handleInputChange} required placeholder="Address" />
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        value={shippingAddress.address}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Address"
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label htmlFor="city">City *</label>
-                      <input type="text" id="city" name="city" value={shippingAddress.city} onChange={handleInputChange} required placeholder="City" />
+                      <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        value={shippingAddress.city}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="City"
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label htmlFor="state">State *</label>
-                      <input type="text" id="state" name="state" value={shippingAddress.state} onChange={handleInputChange} required placeholder="State" />
+                      <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        value={shippingAddress.state}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="State"
+                      />
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="form-group">
                       <label htmlFor="country">Country *</label>
-                      <input type="text" id="country" name="country" value={shippingAddress.country} onChange={handleInputChange} required placeholder="Country" />
+                      <input
+                        type="text"
+                        id="country"
+                        name="country"
+                        value={shippingAddress.country}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="Country"
+                      />
                     </div>
                   </div>
 
                   <div className="col-md-6">
                     <div className="form-group">
                       <label htmlFor="postalCode">Pin Code</label>
-                      <input type="text" id="postalCode" name="postalCode" value={shippingAddress.postalCode} onChange={handleInputChange} placeholder="Pin Code" />
+                      <input
+                        type="text"
+                        id="postalCode"
+                        name="postalCode"
+                        value={shippingAddress.postalCode}
+                        onChange={handleInputChange}
+                        placeholder="Pin Code"
+                      />
                     </div>
                   </div>
                 </div>
@@ -388,7 +448,9 @@ const Checkout = () => {
                     <tbody>
                       {cartItems.map((item, index) => (
                         <tr key={index}>
-                          <td><img src={item.productImage} alt="" height={50} /></td>
+                          <td>
+                            <img src={item.productImage} alt="" height={50} />
+                          </td>
                           <td>{item.productName}</td>
                           <td>&#8377;{item.price}</td>
                           <td>{item.quantity}</td>
@@ -427,17 +489,30 @@ const Checkout = () => {
                     placeholder="Coupon Code"
                   />{" "}
                   &nbsp;
-                  <button className="cupan-code-button" onClick={validateCouponCode}>Apply Coupon</button>
+                  <button
+                    className="cupan-code-button"
+                    onClick={validateCouponCode}
+                  >
+                    Apply Coupon
+                  </button>
                 </div>
                 <div className="form-group">
                   <label htmlFor="payment-method">Payment Method</label>
-                  <select id="payment-method" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                  <select
+                    id="payment-method"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
                     {/* <option value="">-- Please Select --</option> */}
                     <option value="Online">Online</option>
                     {/* <option value="Cash On Delivery">Cash On Delivery</option> */}
                   </select>
                 </div>
-                <button type="submit" className="add-to-cart" onClick={handleConfirmOrder}>
+                <button
+                  type="submit"
+                  className="add-to-cart"
+                  onClick={handleConfirmOrder}
+                >
                   Confirm Order
                 </button>
                 {/* </form> */}

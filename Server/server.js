@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const express = require("express");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
@@ -27,20 +27,22 @@ const shiprocket = require("./Routes/ShipRocketRoutes");
 const app = express();
 
 // Apply CORS options to the app
-app.use(cors({
+app.use(
+  cors({
     origin: function (origin, callback) {
-      callback(null, origin); 
+      callback(null, origin);
     },
-    credentials: true
-  }));
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000, // Limit each IP to 100 requests per windowMs
-    message: "Too many requests from this IP, please try again later.",
-    standardHeaders: true,
-    legacyHeaders: false,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 app.use(limiter);
@@ -55,7 +57,7 @@ app.use(hpp()); // Prevent HTTP Parameter Pollution
 app.set(express.static("./Public"));
 
 app.get("/", (req, res) => {
-    res.send("Server is running on aman vercel");
+  res.send("Server is running on aman vercel");
 });
 
 // Routes
@@ -70,13 +72,13 @@ app.use("/api", ContactRouter);
 app.use("/api", VouchersRouter);
 app.use("/api", ArticalRouter);
 app.use("/api", SubcribeRouter);
-app.use("/api" ,shiprocket)
+app.use("/api", shiprocket);
 
 // Start the server
 const PORT = process.env.PORT || 8000;
 // //////////////aman///////////////
 app.listen(process.env.PORT, () => {
-    console.log(`Server is running at ${process.env.PORT} port`);
+  console.log(`Server is running at ${process.env.PORT} port`);
 });
 
 connectDB();
