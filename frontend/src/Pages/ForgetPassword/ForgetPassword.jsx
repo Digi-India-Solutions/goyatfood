@@ -33,7 +33,7 @@ const ForgetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://api.Goyat Trading.com/api/forgot-password', { email });
+      const response = await axios.post('http://localhost:12006/api/forgot-password', { email });
       if (response.data.success) {
         // setIsModalOpen(true);
         Swal.fire({
@@ -88,10 +88,10 @@ const ForgetPassword = () => {
   return (
     <>
       <Helmet>
-        <title>Forgot Password - Goyat Trading</title>
+        <title>Forgot Password - goyattrading</title>
         <meta
           name="description"
-          content="Reset your password by entering the email associated with your Goyat Trading account. You will receive an OTP for verification."
+          content="Reset your password by entering the email associated with your Goyat Trading.Coaccount. You will receive an OTP for verification."
         />
       </Helmet>
       <section className="forget-password">

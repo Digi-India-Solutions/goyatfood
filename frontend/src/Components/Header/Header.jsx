@@ -60,12 +60,11 @@ const Header = ({refs, setRef}) => {
                 <ul className="list-unstyled d-flex gap-3">
                   <li>
                     <Link to="/about-us" aria-label="About">
-                      About
-                    </Link>
+                      About Us</Link>
                   </li>
                   <li>
                     <Link to="/contact-us" aria-label="Contact">
-                      Contact
+                      Contact Us
                     </Link>
                   </li>
                 </ul>
@@ -77,7 +76,11 @@ const Header = ({refs, setRef}) => {
                 style={{ color: "var(--themeColor)" }}
                 direction=""
               >
-                गोयत ट्रेडिंग उच्च गुणवत्ता वाले मेवा उत्पादों के लिए प्रसिद्ध है, जिनमें बादाम, काजू, किशमिश, अंजीर और अखरोट शामिल हैं। ये उत्पाद पोषण से भरपूर, शुद्ध और स्वादिष्ट होते हैं, जो स्वास्थ्य के प्रति सजग उपभोक्ताओं के लिए उपयुक्त हैं।
+               गोयत ट्रेडिंग उच्च गुणवत्ता वाले मेवा उत्पादों के लिए प्रसिद्ध है,
+                जिनमें बादाम, काजू, किशमिश, अंजीर और अखरोट शामिल हैं।
+                 ये उत्पाद पोषण से भरपूर, शुद्ध और स्वादिष्ट होते हैं, जो स्वास्थ्य
+                  के प्रति सजग उपभोक्ताओं के लिए उपयुक्त हैं।"
+
               </marquee>
             </div>
             <div className="col-md-3 text-end">
@@ -209,10 +212,10 @@ const Header = ({refs, setRef}) => {
                         color: "var(--themeColor)",
                         textDecoration: "none",
                       }}
-                      to="tel:+918283863884"
+                      to="tel:+91 8283863884"
                       aria-label="Call us"
                     >
-                      +918283863884
+                      +91 8283863884
                     </Link>
                   </h3>
                 </div>

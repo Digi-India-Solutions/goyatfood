@@ -22,7 +22,7 @@ const AddCategory = () => {
         formData.append('categoryStatus', categoryStatus); // `true` or `false`
 
         try {
-            const response = await axios.post('https://api.goyattrading.shop/api/add-category', formData, {
+            const response = await axios.post('http://localhost:12006/api/add-category', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

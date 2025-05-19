@@ -9,11 +9,11 @@
 
 .product-card-page {
   width: 100%;
-  padding: 10px;
+  padding: 16px;
   border: 1px solid var(--themeColor);
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: transparent;
-  /* position: relative; */
+  position: relative;
   text-align: center;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .productsPage {
-  padding: 2rem 0 2rem 0;
+  padding: 1rem 0 2rem 0;
 }
 
 .product-image-product img {
@@ -54,11 +54,11 @@
 }
 
 .pruduct-spacing {
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .product-top-spacing {
-  margin-top: 3rem;
+  margin-top: 0rem;
 }
 
 @media only screen and (max-width: 768px) {

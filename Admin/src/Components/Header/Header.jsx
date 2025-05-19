@@ -15,7 +15,7 @@ const Header = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.post('https://api.goyattrading.shop/api/log-out', {}, { withCredentials: true });
+      const response = await axios.post('http://localhost:12006/api/log-out', {}, { withCredentials: true });
       if (response.status === 200) {
         localStorage.clear(); // Clear all local storage data
         toast.success("Logout successful!"); // Added feedback for successful logout
@@ -36,7 +36,7 @@ const Header = () => {
       <header>
         <div className="top-head">
           <div className="right">
-            <h2>Ved Lakshna Admin Panel</h2>
+            <h2>Goyat Trading Admin Panel</h2>
             <div className="bar" onClick={handletoggleBtn}>
               <i class="fa-solid fa-bars"></i>
             </div>

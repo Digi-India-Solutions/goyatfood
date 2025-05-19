@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './Login.css'; // Make sure to create and import a CSS file for styling
-import { toast } from 'react-toastify';
-import axios from 'axios'; // Make sure axios is installed
+import React, { useState } from "react";
+import "./Login.css"; // Make sure to create and import a CSS file for styling
+import { toast } from "react-toastify";
+import axios from "axios"; // Make sure axios is installed
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   const handleSubmit = async (e) => {
@@ -13,23 +13,22 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'https://api.goyattrading.shop/api/log-in',
+        "http://localhost:12006/api/log-in",
         { email, password },
         { withCredentials: true } // Ensure cookies are sent with the request
       );
       if (response.status === 200) {
-        toast.success('Login successful!');
+        toast.success("Login successful!");
         localStorage.setItem("login", true); // Store login state locally
-        window.location.href = '/dashboard'; // Redirect to dashboard
+        window.location.href = "/dashboard"; // Redirect to dashboard
       } else {
-        toast.error(response.data.message || 'Something went wrong!');
+        toast.error(response.data.message || "Something went wrong!");
       }
     } catch (error) {
       console.error("Login error:", error);
-      toast.error(error.response?.data?.message || 'Something went wrong!');
+      toast.error(error.response?.data?.message || "Something went wrong!");
     }
   };
-
 
   return (
     <div className="main-login">
@@ -50,7 +49,7 @@ const Login = () => {
             <label>Password</label>
             <div className="password-container">
               <input
-                type={showPassword ? 'text' : 'password'} // Toggle between 'text' and 'password'
+                type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
@@ -61,11 +60,13 @@ const Login = () => {
                 className="show-password-button"
                 onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
               >
-                {showPassword ? 'Hide' : 'Show'}
+                {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>
-          <button type="submit" className="login-button">Login</button>
+          <button type="submit" className="login-button">
+            Login
+          </button>
         </form>
       </div>
     </div>

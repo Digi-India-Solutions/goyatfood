@@ -5,7 +5,7 @@ import bannerImage3 from "../../images/banner3.png";
 import bannerImage4 from "../../images/banner4.png";
 import "./hero.css";
 import Slider from "react-slick";
-import productImage from "../../images/productImage1.png";
+// import productImage from "../../images/productImage1.png";
 import grocery from "../../images/grocery.png";
 import CountUp from "react-countup";
 import article1 from "../../images/articleimg1.jpg";
@@ -26,7 +26,7 @@ const Hero = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://api.goyattrading.shop/api/get-product");
+      const response = await axios.get("http://localhost:12006/api/get-product");
       setProducts(response.data.products);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -223,12 +223,12 @@ const Hero = () => {
         </a>
       </section>
       <section className="sidewhatsapp">
-        <a target="_blank" href="https://wa.me/9873745454">
+        <a target="_blank" href="https://wa.me/+91 8283863884">
           <i class="bi bi-whatsapp"></i>
         </a>
       </section>
       <section className="sidecall">
-        <a href="tel:+919873745454">
+        <a href="tel:+91 8283863884">
           <i class="bi bi-telephone"></i>
         </a>
       </section>
@@ -317,6 +317,9 @@ const Hero = () => {
         </div>
       </section>
 
+
+      {/* ///////////////////////////aman...//////////////////// */}
+
       <section className="hero-product">
         <div className="container">
           <div className="headings">
@@ -389,6 +392,9 @@ const Hero = () => {
         </div>
       </section>
 
+
+      {/* aman.///////////////////////aman///////////// */}
+
       <section className="grocery">
         <div className="container">
           <div className="row align-items-center">
@@ -449,7 +455,7 @@ const Hero = () => {
                 <div className="overlay">
                   <div className="firstCol">
                     <h6>Sweets & Cookies</h6>
-                    <h4>Best Quality Cookies & Sweets</h4>
+                    <h4></h4>
                     <p>
                       In the category of fruits, a minimarket typically offers a
                       selection of fresh fruits for customers to purchase. Here

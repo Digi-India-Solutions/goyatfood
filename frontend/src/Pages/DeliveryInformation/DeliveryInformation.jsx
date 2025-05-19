@@ -11,7 +11,7 @@ const DeliveryInformation = () => {
   return (
     <>
       <Helmet>
-        <title>Shipping Policy | Goyat Trading.Co</title>
+        <title>Shipping Policy |Goyat Trading.Co</title>
         <meta
           name="description"
           content="Learn about Goyat Trading.Co's shipping process, delivery areas, estimated delivery times, and shipping charges. We ensure fast and secure delivery of your dry fruits, nuts, and spices."

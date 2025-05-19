@@ -31,7 +31,8 @@ const getWelcomeEmailTemplate = (name) => `
                     </p>
                     <p style="color: #555555; font-size: 14px; line-height: 1.5; margin: 0; margin-top: 10px;">
                         Best regards,<br>
-                        <strong>The Goyat Trading Team</strong>
+                        <strong>The Goyat Trading Team
+</strong>
                     </p>
                 </td>
             </tr>
@@ -151,7 +152,7 @@ const login = async (req, res) => {
             secure: true,                 // Ensure cookie is sent over HTTPS
             maxAge: 24 * 60 * 60 * 1000,  // 1-day expiry
             sameSite: 'None',             // Allow cross-site usage (if needed)
-            domain: '.goyattrading.shop' // Allow across main domain and subdomains
+            domain: '.panchgavyamrit.com' // Allow across main domain and subdomains
         });
 
         res.status(200).json({
@@ -169,10 +170,10 @@ const logout = async (req, res) => {
     try {
         // Clear the 'token' cookie
         res.clearCookie('token', {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'None',
-            domain: '.goyattrading.shop'
+            httpOnly: true,               // Prevent JavaScript access
+            secure: true,                 // Ensure cookie is sent over HTTPS
+            sameSite: 'None',             // Allow cross-site usage (if needed)
+            domain: '.panchgavyamrit.com' // Match your domain
         });
 
         res.status(200).json({
@@ -193,7 +194,7 @@ const getPasswordResetEmailTemplate = (name, resetLink) => `
     <div style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%; background-color: #F7F7F7;">
         <table style="max-width: 600px; margin: 50px auto; background: #FFFFFF; border: 1px solid #E8E8E8; border-radius: 10px;">
             <tr>
-                <td style="background: #F58634; padding: 20px; text-align: center;">
+                <td style="background:rgb(52, 158, 245); padding: 20px; text-align: center;">
                     <h1 style="color: #FFFFFF; font-size: 24px;">Password Reset Request</h1>
                 </td>
             </tr>
@@ -204,7 +205,7 @@ const getPasswordResetEmailTemplate = (name, resetLink) => `
                         We received a request to reset your password. If you requested this change, click the link below to reset your password:
                     </p>
                     <p style="color: #555555; font-size: 16px; line-height: 1.5; margin: 20px 0;">
-                        <a href="${resetLink}" style="color: #F58634; text-decoration: none; font-size: 16px;">Reset Password</a>
+                        <a href="${resetLink}" style="color:rgb(113, 172, 255); text-decoration: none; font-size: 16px;">Reset Password</a>
                     </p>
                     <p style="color: #555555; font-size: 14px; line-height: 1.5; margin: 0;">
                         If you did not request this, please ignore this email.
@@ -215,7 +216,8 @@ const getPasswordResetEmailTemplate = (name, resetLink) => `
                 <td style="padding: 20px;">
                     <p style="color: #555555; font-size: 14px; line-height: 1.5; margin: 0;">
                         Best regards,<br>
-                        <strong>The Goyat Trading Team</strong>
+                        <strong>The Goyat Trading Team
+</strong>
                     </p>
                 </td>
             </tr>
@@ -245,7 +247,7 @@ const forgotPassword = async (req, res) => {
         await user.save();
 
         // Generate the reset link
-        const resetLink = `https://panchgavyamrit.com/reset-password/${resetToken}`;
+        const resetLink = `http://localhost:12006/reset-password/${resetToken}`;
 
         // Send password reset email
         await transporter.sendMail({

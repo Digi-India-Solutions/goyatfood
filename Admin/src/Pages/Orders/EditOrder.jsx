@@ -55,7 +55,7 @@ const InvoicePDF = ({ order }) => {
             const details = [];
             for (const product of order.products) {
                 try {
-                    const response = await axios.get(`https://api.goyattrading.shop/api/single-product/${product.productId}`);
+                    const response = await axios.get(`http://localhost:12006/api/single-product/${product.productId}`);
                     const productDetails = response.data.product;
 
                     const productInfo = productDetails.productInfo.find(info => info.productweight === product.weight);
@@ -75,7 +75,7 @@ const InvoicePDF = ({ order }) => {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
-                <Text style={styles.header}>Goyat Trading</Text>
+                <Text style={styles.header}>Goyat Trading.Co</Text>
                 <Text style={styles.shipping}>Shipping Details</Text>
                 <Text style={styles.section}>Order ID: {order._id}</Text>
                 <Text style={styles.section}>orderUniqueId :{order.orderUniqueId}</Text>
@@ -143,7 +143,7 @@ const EditOrder = () => {
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const response = await axios.get(`https://api.goyattrading.shop/api/single-order-data/${orderId}`);
+                const response = await axios.get(`http://localhost:12006/api/single-order-data/${orderId}`);
                 if (response.data.success) {
                     setOrder(response.data.data);
                     setOrderStatus(response.data.data.orderStatus);
@@ -167,7 +167,7 @@ const EditOrder = () => {
 
     const handleUpdate = async () => {
         try {
-            const response = await axios.put(`https://api.goyattrading.shop/api/update-order/${orderId}`, {
+            const response = await axios.put(`http://localhost:12006/api/update-order/${orderId}`, {
                 orderStatus,
                 paymentStatus,
             });
@@ -210,7 +210,7 @@ const EditOrder = () => {
         const payload = { email, password };
 
         try {
-            const response = await axios.post('https://api.goyattrading.shop/api/login-via-shiprocket', payload, {
+            const response = await axios.post('http://localhost:12006/api/login-via-shiprocket', payload, {
                 headers: { 'Content-Type': 'application/json' }
             });
             console.log(response)
@@ -230,7 +230,7 @@ const EditOrder = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://api.goyattrading.shop/api/shiped-order-shiprocket', orderData, {
+            const response = await axios.post('http://localhost:12006/api/shiped-order-shiprocket', orderData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             console.log(response)

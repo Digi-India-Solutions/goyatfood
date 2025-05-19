@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://api.goyattrading.shop/api/log-in",
+        "http://localhost:12006/api/log-in",
         data
       );
       console.log(res);
@@ -60,10 +60,10 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login - Goyat Trading</title>
+        <title>Login - goyattrading</title>
         <meta
           name="description"
-          content="Login to your Goyat Trading account to access your dashboard and track your orders. If you are new, create an account to get started."
+          content="Login to your Goyat Trading.Co account to access your dashboard and track your orders. If you are new, create an account to get started."
         />
       </Helmet>
       <section className="login">

@@ -1,8 +1,8 @@
 .cupan-code-button {
   width: 200px;
-  background-color: var(--themeColor);
+  background-color: #F58634;
   height: 35px;
-  border: none;
+  border: #F58634;
   border-radius: 5px;
   color: #fff;
   font-weight: 700;
@@ -17,7 +17,7 @@ select {
   width: 100%;
   border: 1px solid var(--themeColor);
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 1rem;
 }
 

@@ -13,7 +13,7 @@ import SubscribeForm from "../SubscribeForm/SubscribeForm";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import offer from "../../images/offers.jpeg";
+import offer from "../../images/offers (2).jpeg";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Hero = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "https://api.goyattrading.shop/api/all-banner"
+          "http://localhost:12006/api/all-banner"
         );
         const newData = response.data.banners;
         const filterData = newData.filter((x) => x.bannerStatus === true);
@@ -47,12 +47,13 @@ const Hero = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "https://api.goyattrading.shop/api/get-product"
+        "http://localhost:12006/api/get-product"
       );
       const productRecord = response.data.products;
       const filterbestseller = productRecord.filter(
         (x) => x.bestseller === true
       );
+
       setProducts(filterbestseller.filter((product) => product.productStatus === true));
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -175,20 +176,20 @@ const Hero = () => {
     return text;
   }
 
-  const [articleArr, setArticleArr] = useState([]);
+  // const [articleArr, setArticleArr] = useState([]);
 
-  const getArticalsData = async () => {
-    try {
-      const res = await axios.get("https://api.goyattrading.shop/api/all-articals")
-      setArticleArr(res.data); // Assuming the API returns an array of articles
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const getArticalsData = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:12006/api/all-articals")
+  //     setArticleArr(res.data); // Assuming the API returns an array of articles
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  useEffect(() => {
-    getArticalsData()
-  }, [])
+  // useEffect(() => {
+  //   getArticalsData()
+  // }, [])
 
 
   // add by aman tiwari
@@ -247,12 +248,12 @@ const Hero = () => {
         </a>
       </section>
       <section className="sidewhatsapp">
-        <a target="_blank" href="https://wa.me/9873745454">
+        <a target="_blank" href="https://wa.me/8283863884">
           <i class="bi bi-whatsapp"></i>
         </a>
       </section>
       <section className="sidecall">
-        <a href="tel:+919873745454">
+        <a href="tel:+91 8283863884">
           <i class="bi bi-telephone"></i>
         </a>
       </section>
@@ -272,7 +273,7 @@ const Hero = () => {
                     key={bannerItem.id || index} // Assuming each banner has a unique `id`
                   >
                     <img
-                      src={bannerItem.bannerImage} // Assuming the banner has an 'image' property
+                      src={bannerItem?.bannerImage} // Assuming the banner has an 'image' property
                       className="d-block w-100"
                       alt={`Banner ${index + 1}`}
                     />
@@ -281,7 +282,7 @@ const Hero = () => {
               ) : (
                 <div className="carousel-item active">
                   <img
-                    // src={bannerImage1} // Fallback to a default image
+                    src={banner[0]?.bannerImage} // Fallback to a default image
                     className="d-block w-100"
                     alt="Default Banner"
                   />
@@ -323,7 +324,7 @@ const Hero = () => {
           </div>
           <div className="slider-container">
             <Slider {...settings}>
-              {products.map((product, index) => (
+              {products?.map((product, index) => (
                 <div key={index}>
                   <div className="product-card">
                     {/* <Link to={"/product/product-details"}> */}
@@ -333,118 +334,126 @@ const Hero = () => {
                         alt={product.productName}
                       />
                     </div>
-                    <div className="productName">
-                      <h3 className="product-title">
-                        {truncateText(product.productName, 3)}
-                        {/* {product.productName} */}
-                      </h3>
-                      <div className="price text-end">
-                        {selectedWeights[product._id] ? (
-                          <>
-                            {selectedWeights[product._id]?.discountPercentage >
-                              0 ? (
-                              <>
-                                <span className="current-price">
-                                  <del>
-                                    &#8377;{" "}
+                    <div className="p-2">
+                      <div className="productName">
+                        <h3 className="product-title">
+                          {truncateText(product.productName, 3)}
+                          {/* {product.productName} */}
+                        </h3>
+                        <div className="price text-end">
+                          {selectedWeights[product._id] ? (
+                            <>
+                              {selectedWeights[product._id]?.discountPercentage >
+                                0 ? (
+                                <>
+                                <div>
+                                  <span className="current-price">
+                                    <del>
+                                      &#8377;{" "}
+                                      {
+                                        selectedWeights[product._id]
+                                          ?.originalPrice
+                                      }
+                                    </del>
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="original-price">
+                                    Off{" "}
                                     {
                                       selectedWeights[product._id]
-                                        ?.originalPrice
+                                        ?.discountPercentage
                                     }
-                                  </del>
-                                </span>{" "}
-                                <br />
-                                <span className="original-price">
-                                  Off{" "}
-                                  {
-                                    selectedWeights[product._id]
-                                      ?.discountPercentage
-                                  }
-                                  %
-                                </span>{" "}
-                                <br />
-                                <span className="current-price">
+                                    %
+                                  </span>
+                                </div>
+                                <div>
+                                  <span className="current">
+                                    &#8377; {selectedWeights[product._id]?.price}
+                                  </span>
+                                </div>
+                                </>
+                              ) : (
+                                <div>
+                                <span className="current">
                                   &#8377; {selectedWeights[product._id]?.price}
                                 </span>
-                              </>
-                            ) : (
-                              <span className="current-price">
-                                &#8377; {selectedWeights[product._id]?.price}
-                              </span>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            {product.productInfo[0].productDiscountPercentage >
-                              0 ? (
-                              <>
-                                <span className="current-price">
-                                  <del>
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {product.productInfo[0].productDiscountPercentage >
+                                0 ? (
+                                <>
+                                  <span className="current-price">
+                                    <del>
+                                      &#8377;{" "}
+                                      {product.productInfo[0].productPrice}
+                                    </del>
+                                  </span>{" "}
+                                  <br />
+                                  <span className="original-price">
+                                    Off{" "}
+                                    {
+                                      product.productInfo[0]
+                                        .productDiscountPercentage
+                                    }
+                                    %
+                                  </span>{" "}
+                                  <br />
+                                  <span className="current-price">
                                     &#8377;{" "}
-                                    {product.productInfo[0].productPrice}
-                                  </del>
-                                </span>{" "}
-                                <br />
-                                <span className="original-price">
-                                  Off{" "}
-                                  {
-                                    product.productInfo[0]
-                                      .productDiscountPercentage
-                                  }
-                                  %
-                                </span>{" "}
-                                <br />
+                                    {product.productInfo[0].productFinalPrice}
+                                  </span>
+                                </>
+                              ) : (
                                 <span className="current-price">
                                   &#8377;{" "}
                                   {product.productInfo[0].productFinalPrice}
                                 </span>
-                              </>
-                            ) : (
-                              <span className="current-price">
-                                &#8377;{" "}
-                                {product.productInfo[0].productFinalPrice}
-                              </span>
-                            )}
-                          </>
-                        )}
+                              )}
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {/* </Link> */}
+                      {/* </Link> */}
 
-                    <label htmlFor={`pot-${product._id}`} className="pot-label">
-                      *Weight:
-                    </label>
-                    <select
-                      id={`pot-${product._id}`}
-                      className="pot-select"
-                      onChange={(e) =>
-                        handleWeightChange(product._id, e.target.value)
-                      }
-                    >
-
-                      {product.productInfo.map((info) => (
-                        <option
-                          key={info.productweight}
-                          value={info.productweight}
-                        >
-                          {info.productweight}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="" style={{ display: 'flex', justifyContent: 'space-between', gap: 5 }}>
-                      <button
-                        onClick={() => addToCart(product)}
-                        className="add-to-cart"
+                      <label htmlFor={`pot-${product._id}`} className="pot-label">
+                        *Weight:
+                      </label>
+                      <select
+                        id={`pot-${product._id}`}
+                        className="pot-select"
+                        onChange={(e) =>
+                          handleWeightChange(product._id, e.target.value)
+                        }
                       >
-                        ADD TO CART
-                      </button>
 
-                      {/* remove conflict  */}
-                      <button
-                        onClick={() => handleViewDetails(product._id)}
-                        className="add-to-cart" >
-                        View Details <i class="bi bi-chevron-double-right"></i>
-                      </button>
+                        {product.productInfo.map((info) => (
+                          <option
+                            key={info.productweight}
+                            value={info.productweight}
+                          >
+                            {info.productweight}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="" style={{ display: 'flex', justifyContent: 'space-between', gap: 5 }}>
+                        <button
+                          onClick={() => addToCart(product)}
+                          className="add-to-cart"
+                        >
+                          ADD TO CART
+                        </button>
+
+                        {/* remove conflict  */}
+                        <button
+                          onClick={() => handleViewDetails(product._id)}
+                          className="add-to-cart" >
+                          View Details <i class="bi bi-chevron-double-right"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -472,14 +481,10 @@ const Hero = () => {
             <div className="col-md-7">
               <h4>Pure Ghee, Pure Health</h4>
               <h2>
-                <b>Golden Goodness</b> Authentic Ghee and Wellness Products for
-                You.
+                <b>Nature’s Treasure</b> Premium Dry Fruits and Wholesome Goodness for You.
               </h2>
               <p>
-                Experience the pure richness of authentic ghee, crafted for
-                unmatched taste and nutrition. Explore our range of premium ghee
-                and wellness products designed to enhance your healthy
-                lifestyle.
+                Power up with the pure energy of nature’s finest dry fruits — handpicked for taste, packed for wellness. Your health journey just got delicious!
               </p>
               <Link className="button_" to="/all-products">
                 Check More Products <i class="bi bi-bag"></i>
@@ -525,12 +530,19 @@ const Hero = () => {
               <div className="fruitvegitabls1">
                 <div className="overlay">
                   <div className="firstCol">
-                    <h6 className="text-white">Frozen Fruits</h6>
+                    <h6>Frozen Fruits</h6>
                     <h4>Best Quality Frozen Fruits</h4>
                     <p>
-                      In the Frozen Fruits category, customers can enjoy a vibrant selection of fruits, harvested at peak ripeness and flash-frozen to lock in their natural flavor and nutrition. From everyday favorites to exotic varieties, this section offers the perfect ingredients for smoothies, desserts, and healthy snacking
+                      In the Frozen Fruits category, customers can enjoy
+                      a vibrant selection of fruits, harvested at peak ripeness
+                      and flash-frozen to lock in their natural flavor and nutrition.
+                      From everyday favorites to exotic varieties, this section offers
+                      the perfect
+                      ingredients for smoothies, desserts, and healthy snacking.
                     </p>
-                   
+                    {/* <Link className="button_" to="">
+                      Show More
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -538,24 +550,43 @@ const Hero = () => {
             <div className="col-md-3 mb-2">
               <div className="fruitvegitabls2">
                 <div className="overlay">
-                  <h6 className="text-white">Dry Fruits</h6>
-                  <h4>Best Quality Dry Fruits</h4>
+                  <h6>Dry Fruits</h6>
+                  <h4>Best Quality Dry Fruits
+                  </h4>
                   <p>
-                    In the Dry Fruits category, customers can discover a premium selection of nutrient-packed dried fruits, carefully sourced and dried to perfection. Whether you’re looking for a quick snack, a boost of energy, or a natural ingredient for your recipes, this section offers the finest dried fruits, rich in flavor and health benefits.
+                    In the Dry Fruits category, customers can
+                    discover a premium selection of nutrient-packed
+                    dried fruits, carefully sourced and dried to
+                    perfection. Whether you’re looking for a quick
+                    snack, a boost of energy, or a natural ingredient
+                    for your recipes, this section offers the finest dried
+                    fruits, rich in flavor and health benefits.
                   </p>
-             
+                  {/* <Link className="button_" to="">
+                    Show More
+                  </Link> */}
                 </div>
               </div>
             </div>
             <div className="col-md-3 mb-2">
               <div className="fruitvegitabls3">
                 <div className="overlay">
-                  <h6 className="text-white">Shilajit</h6>
-                  <h4>Pure and Authentic Shilajit</h4>
+                  <h6>Shilajit
+                  </h6>
+                  <h4>Pure and Authentic Shilajit
+                  </h4>
                   <p>
-                    In the Shilajit category, customers can discover the power of nature’s most potent mineral supplement. Sourced from the pristine heights of the Himalayas, our Shilajit is pure, unrefined, and packed with essential minerals and nutrients. Perfect for boosting energy, enhancing vitality, and promoting overall wellness, this natural supplement is a must-have for a balanced and healthy lifestyle.
+                    In the Shilajit category, customers can
+                    discover the power of nature’s most potent
+                    mineral supplement. Sourced from the pristine
+                    heights of the Himalayas, our Shilajit is pure,
+                    unrefined, and packed with essential minerals and
+                    nutrients. Perfect for boosting energy, enhancing
+                    vitality, and promoting overall wellness, this natural supplement is a must-have for a balanced and healthy lifestyle.
                   </p>
-                  
+                  {/* <Link className="button_" to="">
+    Show More
+  </Link> */}
                 </div>
 
               </div>
@@ -566,15 +597,15 @@ const Hero = () => {
 
       <ProductsTabs />
 
-      <section className="article">
-        <div className="container">
-          <div className="headings">
-            <h2>Articles</h2>
-            <div className="Article-carousel">
-              <div className="slider-container">
-                <Slider {...settings2}>
-                  {articleArr.map((item, index) => (
-                    <div>
+      {/* <section className="article"> */}
+        {/* <div className="container"> */}
+          {/* <div className="headings"> */}
+            {/* <h2>Articles</h2> */}
+            {/* <div className="Article-carousel"> */}
+              {/* <div className="slider-container"> */}
+                {/* <Slider {...settings2}> */}
+                  {/* {articleArr.map((item, index) => ( */}
+                    {/* <div>
                       <div className="article_card">
                         <img src={item.image} alt="" />
                         <h5>
@@ -585,22 +616,22 @@ const Hero = () => {
                           {item.descrition.length > 200
                             ? `${item.descrition.slice(0, 200)}...`
                             : item.descrition}
-                        </p>
+                        </p> */}
                         {/* <p className="date">{item.date}</p> */}
                         {/* <div className="d-flex justify-start">
                           <Link className="button_" to="">
                             Read More
                           </Link>
                         </div> */}
-                      </div>
-                    </div>
-                  ))}
-                </Slider>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+                      {/* </div> */}
+                    {/* </div> */}
+                  {/* ))} */}
+                {/* </Slider> */}
+              {/* </div> */}
+            {/* </div> */}
+          {/* </div> */}
+        {/* </div> */}
+      {/* </section> */}
 
       <SubscribeForm />
     </>

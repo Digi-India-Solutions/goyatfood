@@ -24,7 +24,7 @@ const AddProduct = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('https://api.goyattrading.shop/api/all-category');
+                const response = await axios.get('http://localhost:12006/api/all-category');
                 setCategories(response.data);  // Set categories to state
             } catch (error) {
                 toast.error('Error fetching categories');
@@ -114,7 +114,7 @@ const AddProduct = () => {
             });
 
             // Send the data to backend API
-            const response = await axios.post('https://api.goyattrading.shop/api/add-product', formDataToSubmit, { headers: { 'Content-Type': 'multipart/form-data' } });
+            const response = await axios.post('http://localhost:12006/api/add-product', formDataToSubmit, { headers: { 'Content-Type': 'multipart/form-data' } });
 
             toast.success(response.data.message);
             navigate("/all-products")
@@ -245,6 +245,7 @@ const AddProduct = () => {
                                     <label className="form-label">Tax %</label>
                                     <select name="tax" id="" onChange={(e) => handlePointChange(index, e)} className='form-select'>
                                         <option value="">Tax</option>
+                                        <option value="3%">0%</option>
                                         <option value="3%">3%</option>
                                         <option value="5%">5%</option>
                                         <option value="12%">12%</option>
