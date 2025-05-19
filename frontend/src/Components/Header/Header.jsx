@@ -60,11 +60,11 @@ const Header = ({refs, setRef}) => {
                 <ul className="list-unstyled d-flex gap-3">
                   <li>
                     <Link to="/about-us" aria-label="About">
-                      About </Link>
+                      About Us</Link>
                   </li>
                   <li>
                     <Link to="/contact-us" aria-label="Contact">
-                      Contact
+                      Contact Us
                     </Link>
                   </li>
                 </ul>
