@@ -26,7 +26,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:12006/api/send-enquery",
+        "https://api.goyattrading.shop/api/send-enquery",
         data
       );
       if (res.status === 200) {
@@ -77,9 +77,9 @@ const Contact = () => {
           content="Get in touch with us through phone, email, or by filling out the contact form on our website."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://http://localhost:12006/" />
-        <meta property="og:image" content="https://http://localhost:12006//" />
-        <link rel="canonical" href="https://http://localhost:12006/" />
+        <meta property="og:url" content="https://https://api.goyattrading.shop/" />
+        <meta property="og:image" content="https://https://api.goyattrading.shop//" />
+        <link rel="canonical" href="https://https://api.goyattrading.shop/" />
       </Helmet>
 
       <section className="breadcrumb">
