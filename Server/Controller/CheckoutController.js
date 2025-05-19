@@ -245,8 +245,8 @@ exports.checkout = async (req, res) => {
       // Send welcome email
       console.log("getOrderEmailTemplate:==", checkout);
       await transporter.sendMail({
-        from: "dryfruit2664@gmail.com",
-        to: "dryfruit2664@gmail.com",
+        from: "dryfruit9006@gmail.com",
+        to: "dryfruit9006@gmail.com",
         subject: "New Order Received from Goyat Trading.Co",
         html: getOrderEmailTemplate(checkout),
       });
@@ -261,8 +261,8 @@ exports.checkout = async (req, res) => {
     await checkout.save();
     // Send welcome email
     await transporter.sendMail({
-      from: "dryfruit2664@gmail.com",
-      to: "dryfruit2664@gmail.com",
+      from: "dryfruit9006@gmail.com",
+      to: "dryfruit9006@gmail.com",
       subject: "New Order Received from Goyat Trading.Co",
       html: getOrderEmailTemplate(checkout),
     });

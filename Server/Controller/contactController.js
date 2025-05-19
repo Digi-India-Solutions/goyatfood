@@ -60,8 +60,8 @@ const createContact = async (req, res) => {
 
         // Email options for sending the email to the admin
         const mailOptions = {
-            from: "dryfruit2664@gmail.com",  // Sender's email (configured in environment variables)
-            to: "dryfruit2664@gmail.com",  // Replace with the admin's email address
+            from: "dryfruit9006@gmail.com",  // Sender's email (configured in environment variables)
+            to: "dryfruit9006@gmail.com",  // Replace with the admin's email address
             subject: 'New Contact Inquiry Received',
             html: emailContent,  // HTML content for the email
         };

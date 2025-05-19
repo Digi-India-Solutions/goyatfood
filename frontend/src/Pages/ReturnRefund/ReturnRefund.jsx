@@ -107,9 +107,9 @@ const ReturnRefund = () => {
             </h2>
             <p>
               To start a return, contact us at:
-              <a href="mailto:dryfruit2664@gmail.com" className="highlight">
+              <a href="mailto:dryfruit9006@gmail.com" className="highlight">
                 {" "}
-                dryfruit2664@gmail.com
+                dryfruit9006@gmail.com
               </a>
               with:
             </p>

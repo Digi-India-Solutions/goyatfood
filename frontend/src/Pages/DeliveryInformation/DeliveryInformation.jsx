@@ -101,7 +101,7 @@ const DeliveryInformation = () => {
           <h2>11. Contact Us</h2>
           <p>
             📞 Phone: +91 8283863884 <br />
-            📧 Email: dryfruit2664@gmail.com <br />
+            📧 Email: dryfruit9006@gmail.com <br />
             📍 GROUND FLOOR, SCO NO. 20, Goyat trading co., VASANT VIHAR PHASE NO. 1, HIMMATGARH DHAKOLI, ZIRAKPUR, SAS NAGAR MOHALI, SAS Nagar, Punjab,
           </p>
 

@@ -47,7 +47,7 @@ const Checkout = () => {
     getApiData();
 
     const savedCartItems =
-      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+      JSON.parse(sessionStorage.getItem("goyat trading")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -87,7 +87,7 @@ const Checkout = () => {
       behavior: "smooth",
     });
     const savedCartItems =
-      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+      JSON.parse(sessionStorage.getItem("goyat trading")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -233,7 +233,7 @@ const Checkout = () => {
                     );
 
                     if (verifyResponse.status === 200) {
-                      sessionStorage.removeItem("VesLakshna");
+                      sessionStorage.removeItem("goyat trading");
                       setIsPopupVisible(true);
                     } else {
                       alert("Payment verification failed");
@@ -255,7 +255,7 @@ const Checkout = () => {
               const rzp1 = new window.Razorpay(options);
               rzp1.open();
             } else {
-              sessionStorage.removeItem("VesLakshna");
+              sessionStorage.removeItem("goyat trading");
               setIsPopupVisible(true);
             }
           }

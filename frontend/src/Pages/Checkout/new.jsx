@@ -44,7 +44,7 @@ const Checkout = () => {
     getApiData();
 
     // Load cart data from sessionStorage
-    const savedCartItems = JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
+    const savedCartItems = JSON.parse(sessionStorage.getItem("goyat trading")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);

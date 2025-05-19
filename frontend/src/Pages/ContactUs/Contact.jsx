@@ -175,10 +175,10 @@ const Contact = () => {
                       </h5>
                     </div>
                     <a
-                      href="mailto:dryfruit2664@gmail.com"
+                      href="mailto:dryfruit9006@gmail.com"
                       className="contact-link"
                     >
-                      dryfruit2664@gmail.com
+                      dryfruit9006@gmail.com
                     </a>
                   </div>
                 </div>
