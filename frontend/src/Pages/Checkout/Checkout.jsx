@@ -4,6 +4,7 @@ import check from "../../images/check.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import QRCode from "../../images/QRCode.jpeg";
 import Swal from "sweetalert2";
 
 const Checkout = () => {
@@ -22,7 +23,9 @@ const Checkout = () => {
   useEffect(() => {
     const getCupancode = async () => {
       try {
-        const res = await axios.get("https://api.goyattrading.shop/api/all-vouchers");
+        const res = await axios.get(
+          "https://api.goyattrading.shop/api/all-vouchers"
+        );
         if (res.status === 200) {
           setCupanCode(res.data.data);
         }
@@ -496,6 +499,11 @@ const Checkout = () => {
                     Apply Coupon
                   </button>
                 </div>
+
+                <div className="d-flex justify-content-center">
+                  <img src={QRCode} alt="QR Code Image" className="w-50 h-50" />
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="payment-method">Payment Method</label>
                   <select
