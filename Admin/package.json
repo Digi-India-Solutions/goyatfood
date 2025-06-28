@@ -13,6 +13,7 @@
     "jodit-react": "^4.1.2",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
+    "number-to-words": "^1.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-paginate": "^8.2.0",
@@ -20,7 +21,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.11.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
