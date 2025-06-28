@@ -58,6 +58,7 @@ const Header = () => {
           <ul>
             <li className={isActive('/dashboard') ? 'active' : ''}><Link to="/dashboard" onClick={handletoggleBtn}> <i class="fa-solid fa-chart-line"></i> Dashboard</Link></li>
             <li className={isActive('/all-orders') || isActive("/edit-order") ? 'active' : ''} ><Link to="/all-orders" onClick={handletoggleBtn}> <i class="fa-solid fa-cart-shopping"></i> Manage Orders</Link></li>
+            <li className={isActive('/get-all-orders') || isActive("/edit-order") ? 'active' : ''} ><Link to="/get-all-orders" onClick={handletoggleBtn}> <i class="fa-solid fa-upload"></i> Uploaded Orders</Link></li>
             <li className={isActive('/all-contact-inquery') ? 'active' : ''} ><Link to="/all-contact-inquery" onClick={handletoggleBtn}> <i class="fa-solid fa-comment-dots"></i> Manage Inquery</Link></li>
             <li className={isActive('/all-banners') || isActive("/add-banner") || isActive("/edit-banner") ? 'active' : ''} ><Link to="/all-banners" onClick={handletoggleBtn}> <i class="fa-regular fa-images"></i> Manage Banners</Link></li>
             <li className={isActive('/all-category') || isActive("/add-category") || isActive("/edit-category") ? 'active' : ''} ><Link to="/all-category" onClick={handletoggleBtn}> <i class="fa-solid fa-list"></i> Manage Category</Link></li>

@@ -23,6 +23,7 @@ const VouchersRouter = require("./Routes/VouchersRouter");
 const ArticalRouter = require("./Routes/ArticalRouter");
 const SubcribeRouter = require("./Routes/subscribeRoutes");
 const shiprocket = require("./Routes/ShipRocketRoutes");
+const OrderRouter = require("./Routes/OrderRouter");
 
 const app = express();
 
@@ -46,7 +47,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-app.use(express.json());
+app.use(express.json({ limit: "200mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(helmet()); // Set secure HTTP headers
@@ -73,7 +74,7 @@ app.use("/api", VouchersRouter);
 app.use("/api", ArticalRouter);
 app.use("/api", SubcribeRouter);
 app.use("/api", shiprocket);
-
+app.use("/api",OrderRouter)
 // Start the server
 const PORT = process.env.PORT || 8000;
 // //////////////aman///////////////
