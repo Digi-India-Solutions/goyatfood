@@ -67,7 +67,7 @@ const generateInvoicePDF = (order, preview = false) => {
       item.productName,
       `${item.quantity}`,
       item.grams,
-      `Rs.${order.totalAmount}`,
+      `Rs.${item.price}`,
     ];
   });
 
@@ -159,7 +159,7 @@ doc.text(inWords, margin, sy + 6);
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8000/api/get-all-orders?page=${page}&limit=${limit}`
+        `https://api.goyattrading.shop/api/get-all-orders?page=${page}&limit=${limit}`
       );
       if (response.status === 200) {
         const { data, totalCount } = response.data;
@@ -193,7 +193,7 @@ doc.text(inWords, margin, sy + 6);
 
       if (result.isConfirmed) {
         const response = await axios.delete(
-          `http://localhost:8000/api/delete-upload-order/${orderId}`
+          `https://api.goyattrading.shop/api/delete-upload-order/${orderId}`
         );
         if (response.status === 200) {
           toast.success("Order deleted successfully!");

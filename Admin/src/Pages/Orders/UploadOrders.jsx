@@ -35,7 +35,7 @@ const UploadOrders = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/upload-orders",
+        "https://api.goyattrading.shop/api/upload-orders",
         { orders: jsonData }
       );
       setUploadStatus("✅ Upload successful!");
