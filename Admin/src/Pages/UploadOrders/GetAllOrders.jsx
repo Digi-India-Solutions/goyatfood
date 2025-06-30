@@ -224,9 +224,9 @@ doc.text(inWords, margin, sy + 6);
       <ToastContainer />
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>All Orders</h4> 
-        <Link to="/upload-orders" className="btn btn-primary">
+        {/* <Link to="/upload-orders" className="btn btn-primary">
           <i className="fa-solid fa-file-import me-2"></i> Upload Orders
-        </Link>
+        </Link> */}
       </div>
 
       <section>
