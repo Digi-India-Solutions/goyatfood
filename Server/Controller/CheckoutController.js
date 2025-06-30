@@ -209,7 +209,7 @@ exports.checkout = async (req, res) => {
   const nextYearDigits = (parseInt(lastTwoDigits) + 1).toString();
   const orderNumber = orderLength + 1;
 
-  const uniqueUserId = `SS/WEB/${lastTwoDigits}-${nextYearDigits}/0${orderNumber}`;
+  const uniqueUserId =`ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
   try {
     const checkout = new Checkout({
       userId,
