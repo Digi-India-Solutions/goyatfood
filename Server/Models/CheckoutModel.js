@@ -121,6 +121,9 @@ const checkoutSchema = new mongoose.Schema({
     default: false,
   },
   discountCupan: { type: Number, default: 0 },
+      transitionId: {
+        type: String,
+    }
 });
 
 const Checkout = mongoose.model("Checkout", checkoutSchema);

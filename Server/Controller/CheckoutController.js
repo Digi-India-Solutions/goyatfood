@@ -107,7 +107,7 @@ const getOrderEmailTemplate = (checkout) => {
 };
 exports.checkout = async (req, res) => {
   console.log(req.body);
-  const { userId, products, shippingAddress, paymentMethod, cupanCode } =
+  const { userId, products, shippingAddress, paymentMethod, cupanCode,transitionId } =
     req.body;
 
   const pincode = shippingAddress.postalCode;
@@ -257,7 +257,9 @@ exports.checkout = async (req, res) => {
         razorpayOrder,
       });
     }
-
+if(paymentMethod==="QR"){
+    checkout.transitionId=transitionId
+}
     await checkout.save();
     // Send welcome email
     await transporter.sendMail({
