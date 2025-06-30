@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./checkout.css";
 import check from "../../images/check.gif";
+import upiImage from "../../images/upi.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import QRCode from "../../images/QRCode.jpeg";
 import Swal from "sweetalert2";
 
 const Checkout = () => {
@@ -19,7 +19,9 @@ const Checkout = () => {
   const [cupanCode, setCupanCode] = useState([]);
   const [discount, setDiscount] = useState(0);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
-
+  const qrModalRef = useRef(null);
+  const [upiTxnId, setUpiTxnId] = useState("");
+  const [transactionStatus, setTransactionStatus] = useState("");
   useEffect(() => {
     const getCupancode = async () => {
       try {
@@ -50,7 +52,7 @@ const Checkout = () => {
     getApiData();
 
     const savedCartItems =
-      JSON.parse(sessionStorage.getItem("goyat trading")) || [];
+      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -90,7 +92,7 @@ const Checkout = () => {
       behavior: "smooth",
     });
     const savedCartItems =
-      JSON.parse(sessionStorage.getItem("goyat trading")) || [];
+      JSON.parse(sessionStorage.getItem("VesLakshna")) || [];
     setCartItems(savedCartItems);
     calculateCartSummary(savedCartItems);
   }, []);
@@ -141,6 +143,25 @@ const Checkout = () => {
     setTotal(tempSubtotal + (tempSubtotal >= 6000 ? 0 : shipping));
   };
 
+  const handleUTRSubmit = () => {
+    if (upiTxnId.trim() === "") {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Please enter a valid UTR/Transaction ID.",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+    setTransactionStatus("pending");
+    const modal = window.bootstrap.Modal.getInstance(qrModalRef.current);
+    modal.hide();
+
+    setUpiTxnId("");
+  };
   const validateCouponCode = () => {
     if (isCouponApplied) {
       Swal.fire("Error", "A coupon has already been applied.", "error");
@@ -184,6 +205,15 @@ const Checkout = () => {
   };
   // console.log("XXXXXXXXXXXXXXXXXXXXX:-XXXX-:=",shippingAddress)
 
+  const handlePaymentMethodChange = (e) => {
+    const selected = e.target.value;
+    setPaymentMethod(selected);
+
+    if (selected === "QR") {
+      const modal = new window.bootstrap.Modal(qrModalRef.current);
+      modal.show();
+    }
+  };
   const handleConfirmOrder = async (event) => {
     event.preventDefault();
     Swal.fire({
@@ -205,45 +235,41 @@ const Checkout = () => {
           paymentMethod,
           cupanCode: applycupanValue || null,
         };
-
+        if (paymentMethod === "QR") {
+          checkoutData.transitionId = upiTxnId;
+        }
         try {
           const res = await axios.post(
             "https://api.goyattrading.shop/api/checkout",
             checkoutData
           );
-
+          console.log(res);
           if (res.status === 201) {
             if (paymentMethod === "Online") {
-              const { razorpayOrder } = res?.data;
-              console.log("res:--", res.data.checkout._id, razorpayOrder.id);
+              const { razorpayOrder } = res.data;
               const options = {
-                key: "rzp_live_gtFmeXCTknKUqe",
+                key: "rzp_live_FjN3xa6p5RsEl6",
                 amount: razorpayOrder.amount,
                 currency: "INR",
-                name: "Goyat Trading.Co",
+                name: "Vedlakshna",
                 description: "Checkout Payment",
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
-                  try {
-                    const verifyResponse = await axios.post(
-                      "https://api.goyattrading.shop/api/payment/verify",
-                      {
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_signature: response.razorpay_signature,
-                        order_id: res.data.checkout._id, // MongoDB ID
-                      }
-                    );
-
-                    if (verifyResponse.status === 200) {
-                      sessionStorage.removeItem("goyat trading");
-                      setIsPopupVisible(true);
-                    } else {
-                      alert("Payment verification failed");
+                  const verifyResponse = await axios.post(
+                    "https://api.goyattrading.shop/api/payment/verify",
+                    {
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_signature: response.razorpay_signature,
+                      order_id: res.data.checkout._id,
                     }
-                  } catch (error) {
-                    console.error("Verification error:", error);
-                    alert("Something went wrong while verifying payment.");
+                  );
+
+                  if (verifyResponse.status === 200) {
+                    sessionStorage.removeItem("VesLakshna");
+                    setIsPopupVisible(true);
+                  } else {
+                    alert("Payment verification failed");
                   }
                 },
                 prefill: {
@@ -258,7 +284,7 @@ const Checkout = () => {
               const rzp1 = new window.Razorpay(options);
               rzp1.open();
             } else {
-              sessionStorage.removeItem("goyat trading");
+              sessionStorage.removeItem("VesLakshna");
               setIsPopupVisible(true);
             }
           }
@@ -499,22 +525,94 @@ const Checkout = () => {
                     Apply Coupon
                   </button>
                 </div>
-
-                <div className="d-flex justify-content-center">
-                  <img src={QRCode} alt="QR Code Image" className="w-50 h-50" />
-                </div>
-
                 <div className="form-group">
                   <label htmlFor="payment-method">Payment Method</label>
                   <select
                     id="payment-method"
                     value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    onChange={handlePaymentMethodChange}
                   >
                     {/* <option value="">-- Please Select --</option> */}
                     <option value="Online">Online</option>
+                    <option value="QR">Scan QR to Pay</option>
                     {/* <option value="Cash On Delivery">Cash On Delivery</option> */}
                   </select>
+                  <div
+                    className="modal fade"
+                    ref={qrModalRef}
+                    id="qrModal"
+                    tabIndex="-1"
+                    aria-labelledby="qrModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-dialog-centered">
+                      <div className="modal-content text-center">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="qrModalLabel">
+                            Scan QR to Pay
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          <img
+                            src={upiImage}
+                            alt="QR Code"
+                            className="img-fluid mb-3"
+                            style={{ maxWidth: "300px" }}
+                          />
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter UPI Transaction ID / UTR"
+                            value={upiTxnId}
+                            onChange={(e) => setUpiTxnId(e.target.value)}
+                          />
+                        </div>
+                        <div className="modal-footer d-flex justify-content-center gap-3">
+                          <button
+                            type="button"
+                            className="btn px-4 py-2"
+                            onClick={handleUTRSubmit}
+                          >
+                            Submit
+                          </button>
+                          {/* <button
+                            type="button"
+                            className="btn btn-outline-danger px-4"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button> */}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {transactionStatus && (
+                    <div className="text-center mt-4">
+                      <div
+                        className={`alert ${
+                          transactionStatus === "pending"
+                            ? "alert-warning"
+                            : transactionStatus === "success"
+                            ? "alert-success"
+                            : "alert-danger"
+                        }`}
+                        role="alert"
+                      >
+                        {transactionStatus === "pending" &&
+                          "Your transaction is in progress..."}
+                        {transactionStatus === "success" &&
+                          "Payment successful!"}
+                        {transactionStatus === "error" &&
+                          "There was a problem with your transaction."}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <button
                   type="submit"
