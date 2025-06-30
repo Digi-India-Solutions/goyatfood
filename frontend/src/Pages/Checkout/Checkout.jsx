@@ -189,7 +189,7 @@ const Checkout = () => {
             },
           });
         const res = await axios.post(
-          "http://localhost:8000/api/checkout",
+          "https://api.goyattrading.shop/api/checkout",
           checkoutData
         );
         if (res.status === 201) {
@@ -278,7 +278,7 @@ const Checkout = () => {
   //       }
   //       try {
   //         const res = await axios.post(
-  //           "http://localhost:8000/api/checkout",
+  //           "https://api.goyattrading.shop/api/checkout",
   //           checkoutData
   //         );
   //         console.log(res);
@@ -370,7 +370,7 @@ const Checkout = () => {
         }
         try {
           const res = await axios.post(
-            "http://localhost:8000/api/checkout",
+            "https://api.goyattrading.shop/api/checkout",
             checkoutData
           );
 
@@ -389,7 +389,7 @@ const Checkout = () => {
                 handler: async (response) => {
                   try {
                     const verifyResponse = await axios.post(
-                      "http://localhost:8000/api/payment/verify",
+                      "https://api.goyattrading.shop/api/payment/verify",
                       {
                         razorpay_payment_id: response.razorpay_payment_id,
                         razorpay_order_id: response.razorpay_order_id,
