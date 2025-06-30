@@ -76,7 +76,7 @@ const checkoutSchema = new mongoose.Schema({
   paymentMethod: {
     type: String,
     required: true,
-    enum: ["Online", "Cash On Delivery"],
+    enum: ["Online", "Cash On Delivery","QR"],
   },
   orderStatus: {
     type: String,
