@@ -156,11 +156,49 @@ const Checkout = () => {
       });
       return;
     }
-    setTransactionStatus("pending");
+    // setTransactionStatus("pending");
     const modal = window.bootstrap.Modal.getInstance(qrModalRef.current);
     modal.hide();
 
     setUpiTxnId("");
+    Swal.fire({
+      title: "Confirm Your Order",
+      text: `Do you want to proceed with the order?`,
+      // For your pincode, the shipping charge is ₹${shipping}.
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Place Order",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#F37254",
+      cancelButtonColor: "#d33",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const checkoutData = {
+          userId: userId,
+          products: cartItems,
+          shippingAddress,
+          paymentMethod,
+          cupanCode: applycupanValue || null,
+        };
+          Swal.fire({
+            title: "Placing your order...",
+            text: "Please wait while we process your order.",
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+        const res = await axios.post(
+          "https://api.goyattrading.shop/api/checkout",
+          checkoutData
+        );
+        if (res.status === 201) {
+        Swal.close();
+        }
+        sessionStorage.removeItem("VesLakshna");
+        setIsPopupVisible(true);
+      }
+    });
   };
   const validateCouponCode = () => {
     if (isCouponApplied) {
@@ -214,6 +252,90 @@ const Checkout = () => {
       modal.show();
     }
   };
+  // const handleConfirmOrder = async (event) => {
+  //   event.preventDefault();
+  //   Swal.fire({
+  //     title: "Confirm Your Order",
+  //     text: `Do you want to proceed with the order?`,
+  //     // For your pincode, the shipping charge is ₹${shipping}.
+  //     icon: "question",
+  //     showCancelButton: true,
+  //     confirmButtonText: "Yes, Place Order",
+  //     cancelButtonText: "Cancel",
+  //     confirmButtonColor: "#F37254",
+  //     cancelButtonColor: "#d33",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       const checkoutData = {
+  //         userId: userId,
+  //         products: cartItems,
+  //         shippingAddress,
+  //         paymentMethod,
+  //         cupanCode: applycupanValue || null,
+  //       };
+  //       if (paymentMethod === "QR") {
+  //         checkoutData.transitionId = upiTxnId;
+  //       }
+  //       try {
+  //         const res = await axios.post(
+  //           "https://api.goyattrading.shop/api/checkout",
+  //           checkoutData
+  //         );
+  //         console.log(res);
+  //         if (res.status === 201) {
+  //           if (paymentMethod === "Online") {
+  //             const { razorpayOrder } = res.data;
+  //             const options = {
+  //               key: "rzp_live_gtFmeXCTknKUqe",
+  //               amount: razorpayOrder.amount,
+  //               currency: "INR",
+  //               name: "Vedlakshna",
+  //               description: "Checkout Payment",
+  //               order_id: razorpayOrder.id,
+  //               handler: async (response) => {
+  //                 const verifyResponse = await axios.post(
+  //                   "https://api.goyattrading.shop/api/payment/verify",
+  //                   {
+  //                     razorpay_payment_id: response.razorpay_payment_id,
+  //                     razorpay_order_id: response.razorpay_order_id,
+  //                     razorpay_signature: response.razorpay_signature,
+  //                     order_id: res.data.checkout._id,
+  //                   }
+  //                 );
+
+  //                 if (verifyResponse.status === 200) {
+  //                   sessionStorage.removeItem("VesLakshna");
+  //                   setIsPopupVisible(true);
+  //                 } else {
+  //                   alert("Payment verification failed");
+  //                 }
+  //               },
+  //               prefill: {
+  //                 name: shippingAddress.name,
+  //                 email: shippingAddress.email,
+  //                 contact: shippingAddress.phone,
+  //               },
+  //               theme: {
+  //                 color: "#F37254", // Customize theme color
+  //               },
+  //             };
+  //             const rzp1 = new window.Razorpay(options);
+  //             rzp1.open();
+  //           } else {
+  //             sessionStorage.removeItem("VesLakshna");
+  //             setIsPopupVisible(true);
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.log("Error in order confirmation:", error);
+  //       }
+  //     } else {
+  //       // Do nothing if the user cancels
+  //       console.log("Order cancelled");
+  //     }
+  //   });
+  // };
+
   const handleConfirmOrder = async (event) => {
     event.preventDefault();
     Swal.fire({
@@ -235,6 +357,14 @@ const Checkout = () => {
           paymentMethod,
           cupanCode: applycupanValue || null,
         };
+          Swal.fire({
+            title: "Placing your order...",
+            text: "Please wait while we process your order.",
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
         if (paymentMethod === "QR") {
           checkoutData.transitionId = upiTxnId;
         }
@@ -243,33 +373,40 @@ const Checkout = () => {
             "https://api.goyattrading.shop/api/checkout",
             checkoutData
           );
-          console.log(res);
+
           if (res.status === 201) {
+            Swal.close();
             if (paymentMethod === "Online") {
-              const { razorpayOrder } = res.data;
+              const { razorpayOrder } = res?.data;
+              console.log("res:--", res.data.checkout._id, razorpayOrder.id);
               const options = {
-                key: "rzp_live_FjN3xa6p5RsEl6",
+                key: "rzp_live_gtFmeXCTknKUqe",
                 amount: razorpayOrder.amount,
                 currency: "INR",
-                name: "Vedlakshna",
+                name: "Goyat Trading.Co",
                 description: "Checkout Payment",
                 order_id: razorpayOrder.id,
                 handler: async (response) => {
-                  const verifyResponse = await axios.post(
-                    "https://api.goyattrading.shop/api/payment/verify",
-                    {
-                      razorpay_payment_id: response.razorpay_payment_id,
-                      razorpay_order_id: response.razorpay_order_id,
-                      razorpay_signature: response.razorpay_signature,
-                      order_id: res.data.checkout._id,
-                    }
-                  );
+                  try {
+                    const verifyResponse = await axios.post(
+                      "https://api.goyattrading.shop/api/payment/verify",
+                      {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature,
+                        order_id: res.data.checkout._id, // MongoDB ID
+                      }
+                    );
 
-                  if (verifyResponse.status === 200) {
-                    sessionStorage.removeItem("VesLakshna");
-                    setIsPopupVisible(true);
-                  } else {
-                    alert("Payment verification failed");
+                    if (verifyResponse.status === 200) {
+                      sessionStorage.removeItem("goyat trading");
+                      setIsPopupVisible(true);
+                    } else {
+                      alert("Payment verification failed");
+                    }
+                  } catch (error) {
+                    console.error("Verification error:", error);
+                    alert("Something went wrong while verifying payment.");
                   }
                 },
                 prefill: {
@@ -284,7 +421,7 @@ const Checkout = () => {
               const rzp1 = new window.Razorpay(options);
               rzp1.open();
             } else {
-              sessionStorage.removeItem("VesLakshna");
+              sessionStorage.removeItem("goyat trading");
               setIsPopupVisible(true);
             }
           }

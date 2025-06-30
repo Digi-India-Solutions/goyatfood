@@ -229,6 +229,7 @@ exports.checkout = async (req, res) => {
       cupanCode,
       discountCupan,
     });
+    const user = await User.findById(userId);
 
     // If payment method is online, create a Razorpay order
     if (paymentMethod === "Online") {
@@ -252,7 +253,7 @@ exports.checkout = async (req, res) => {
       console.log("getOrderEmailTemplate:==", checkout);
       await transporter.sendMail({
         from: "dryfruit9006@gmail.com",
-        to: "dryfruit9006@gmail.com",
+        to:user?.email || "dryfruit9006@gmail.com",
         subject: "New Order Received from Goyat Trading.Co",
         html: getOrderEmailTemplate(checkout),
       });
@@ -267,10 +268,11 @@ exports.checkout = async (req, res) => {
       checkout.transitionId = transitionId;
     }
     await checkout.save();
+
     // Send welcome email
     await transporter.sendMail({
       from: "dryfruit9006@gmail.com",
-      to: "dryfruit9006@gmail.com",
+      to: user?.email || "dryfruit9006@gmail.com",
       subject: "New Order Received from Goyat Trading.Co",
       html: getOrderEmailTemplate(checkout),
     });

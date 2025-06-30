@@ -72,7 +72,7 @@ const Home = () => {
               <Route path={"/edit-artical/:id"} element={<EditArtical />} />
 
               {/* --- Orders --- */}
-              <Route path={"/all-users"} element={<AllUsers />} />
+              {/* <Route path={"/all-users"} element={<AllUsers />} /> */}
 
               {/* --- Vouchers --- */}
               <Route
